@@ -238,13 +238,13 @@ angular.module('pele.controllers', [])
                 var titleDisp = $stateParams.title;
                 // Create the login modal that we will use later
                 var pincode =  PelApi.showPinCode(appId, titleDisp , config_app.pinCodeSubTitlePCR);
-                //$scope.login();
 
               } else if ("PAD" === pinCodeStatus ) {
 
                 $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
                 PelApi.showPopup(config_app.pinCodeSubTitlePDA , "");
+                $state.go("app.p1_appsLists");
 
               } else if ("PNE" === pinCodeStatus ) {
 
@@ -414,8 +414,7 @@ angular.module('pele.controllers', [])
         PelApi.showPopup(config_app.wifiTitle , config_app.wifiSubTitle);
       }else {
         PelApi.showLoading();
-        //=============================================================================
-        //=============================================================================
+
         var links = PelApi.getDocApproveServiceUrl("GetUserNotif");
 
         var retGetUserNotifications = PelApi.GetUserNotifications(links, appId, docId, docInitId);
@@ -462,9 +461,6 @@ angular.module('pele.controllers', [])
             });
           }
         );
-        //=============================================================================
-        //=============================================================================
-
       }
     } // forwardToDoc
 
@@ -514,17 +510,11 @@ angular.module('pele.controllers', [])
       $scope.tabs = config_app.tabs;
 
       var buttons = {};
-      //buttons.approve = true;
-
 
       $scope.style = {
         color: 'red'
       };
-      /*
-      $ionicLoading.show({
-        template: config_app.loadingMsg
-      });
-      */
+
       PelApi.showLoading();
 
       var appId = $stateParams.AppId,
@@ -554,66 +544,6 @@ angular.module('pele.controllers', [])
         $ionicLoading.hide();
         $scope.$broadcast('scroll.refreshComplete');
 
-        /*
-        var links = PelApi.getDocApproveServiceUrl("GetUserNotif");
-
-        var retGetUserNotifications = PelApi.GetUserNotifications(links, appId, docId, docInitId);
-        retGetUserNotifications.then(
-          //--- SUCCESS ---//
-          function () {
-            retGetUserNotifications.success(function (data, status, headers, config) {
-              var strData = JSON.stringify(data);
-              strData = strData.replace(/\\/g, "");
-              strData = strData.replace(/"{/g, "{");
-              strData = strData.replace(/}"/g, "}");
-
-              var newData = JSON.parse(strData);
-              source = newData.Response.OutParams.Result.ROWSET.ROW;
-              //--------------------------------------------------
-              //--             Set Doc Details
-              //--------------------------------------------------
-              $scope.docDetails = source;
-              $scope.sourceTitle = source.DOC_NAME;
-              $scope.CREATOR = source.CREATOR;
-              $scope.EMP_NUMBER = source.EMP_NUMBER;
-              $scope.SECTOR = source.SECTOR;
-              $scope.DEPARTMENT = source.DEPARTMENT;
-              $scope.DOC_INIT_ID = source.DOC_INIT_ID;
-              $scope.SENT_DATE = source.SENT_DATE;
-              $scope.NOTIFICATION_ID = source.NOTIFICATION_ID;
-
-              var buttonsLength = $scope.docDetails.BUTTONS.length;
-              // Show the action sheet
-              if(2 === buttonsLength) {
-                $scope.ApprovReject = "pele_show";
-                $scope.Ok = "pele_hide";
-              }else{
-                $scope.ApprovReject = "pele_hide";
-                $scope.Ok = "pele_show";
-              }
-              $ionicLoading.hide();
-              $scope.$broadcast('scroll.refreshComplete');
-
-            });
-
-          }
-          //--- ERROR ---//
-          , function () {
-
-            retGetUserNotifications.success(function (data, status, headers, config) {
-              $ionicLoading.hide();
-              $scope.$broadcast('scroll.refreshComplete');
-              PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
-
-            }).error(function (data, status, headers, config) {
-              $ionicLoading.hide();
-              $scope.$broadcast('scroll.refreshComplete');
-              PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
-
-            });
-          }
-        );
-        */
       }
     }; // doRefresh
 
