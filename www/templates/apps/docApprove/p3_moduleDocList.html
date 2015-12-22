@@ -1,0 +1,49 @@
+<ion-view class="feed-entries-view " cache-view="false">
+  <ion-nav-buttons side="right" >
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-nav-title>
+    <span>{{sourceTitle}}</span>
+  </ion-nav-title>
+  <ion-content class="pele-background" onload="doRefresh()">
+    <!-- Refresh to get the new posts -->
+    <ion-refresher pulling-text="משוך לרענון..."  on-refresh="doRefresh()">
+    </ion-refresher>
+    <div class="row row-top">
+      <img src="img/DocApprove/pele_header_1.png" class="pele-img-size">
+    </div>
+    <label class="item item-input" dir="rtl" ng-click="searchBarCreteria()">
+      <a class="button button-icon icon ion-search" ></a>
+      <!--<i class="icon ion-search placeholder-icon"></i>-->
+      <input type="search" placeholder="חיפוש" ng-model="searchText.text">
+    </label>
+
+    <ion-list>
+      <div ng-repeat="chat in chats">
+        <ion-item class="item-stable"
+                  ng-click="toggleGroup(chat.DOC_NAME)"
+                  ng-class="{active: isGroupShown(chat.DOC_NAME)}">
+          <i class="icon" ng-class="isGroupShown(chat.DOC_NAME) ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          {{chat.DOC_NAME}}
+          <span class="badge badge-assertive">{{chat.FORM_QTY}}</span>
+        </ion-item>
+        <ion-item class="item-accordion item-remove-animate item-avatar item-icon-right" ng-repeat="item in chat.DOCUMENTS.DOCUMENTS_ROW | filter:searchText.text" ng-show="isGroupShown(chat.DOC_NAME)" ng-click="forwardToDoc(item.DOC_ID, item.DOC_INIT_ID)">
+          <img ng-src="img/employees/worker.png">
+          <h2>{{item.MESSAGE}}</h2>
+          <h3>{{item.DOC_INIT_ID}}</h3>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+          <ion-option-button class="button-assertive" ng-click="remove(item.DOC_INIT_ID)">
+            מחק
+          </ion-option-button>
+        </ion-item>
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>
+
+
+
+
+
+
