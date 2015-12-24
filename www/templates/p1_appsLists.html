@@ -7,13 +7,13 @@
     </ion-refresher>
 
     <div class="row row-top">
-      <img src="img/DocApprove/header_2.png" class="pele-img-size">
+      <img src="img/DocApprove/header_3.png" class="pele-img-size">
     </div>
 
     <div class="row categories-list">
       <div ng-repeat="category in feeds_categories.menuItems" class="col col-50" ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)">
         <a class="feed-category" >
-          <pre-img ratio="_1_1" helper-class="square-image">
+          <pre-img ratio="_1_1" helper-class="square-image" class="app-button">
             <img class="category-image" ng-src="{{category.Image}}" spinner-on-load>
           </pre-img>
           <div class="category-bg"></div>
