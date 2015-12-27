@@ -115,6 +115,49 @@ a.item :focus{
     background-repeat:no-repeat;
 
 }
+p.description{
+    font-size: 24px !important;
+    color: black !important;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    padding: 30px;
+}
+
+/************************************/
+label.item{
+    background-color: #3F3F3D;
+}
+input.search-area{background-image: url("../img/DocApprove/search_box.png");
+    background-size: 100% 32px !important;
+    background-repeat:no-repeat;
+    height:32px !important;
+    padding: 0px;
+    direction:rtl ;
+}
+a.search-icon{background-image: url("../img/DocApprove/search_button.png");
+    background-size: 100% 32px !important;
+    background-repeat:no-repeat;
+    height:32px ;
+    width: 32px;
+    padding: 0px;
+}
+
+.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
+    background-size: 100% 32px !important;
+    background-repeat:no-repeat;
+    height:32px ;
+    width: 32px;
+    padding: 0px;}
+
+.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
+    background-size: 100% 32px !important;
+    background-repeat:no-repeat;
+    height:32px ;
+    width: 32px;
+    padding: 0px;}
+
+/************************************/
 
 .list .item.item-accordion {
     line-height: 38px;
@@ -130,27 +173,10 @@ a.item :focus{
 .list .item.item-accordion.ng-hide-remove {
     display: block !important;
 }
+
 div.login-form {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
 }
-
-div.app-button{
-
-}
-
-
-p.description{
-    font-size: 24px !important;
-    color: black !important;
-    font-weight: bold;
-    text-align: center;
-    vertical-align: middle;
-    padding: 30px;
-}
-
-
-
-.row{padding: 0px !important; }
