@@ -9,8 +9,8 @@
     <!-- Refresh to get the new posts -->
     <ion-refresher pulling-text="משוך לרענון..."  on-refresh="doRefresh()">
     </ion-refresher>
-    <div class="row row-top">
-      <img src="img/DocApprove/pele_header_1.png" class="pele-img-size">
+    <div class="pele-page-title pele-img-size pele-page-title-font">
+      <a>{{title}}</a>
     </div>
     <label class="item item-input" dir="rtl" ng-click="searchBarCreteria()">
       <a class="button button-icon icon ion-search" ></a>
@@ -20,9 +20,7 @@
 
     <ion-list>
       <div ng-repeat="chat in chats">
-        <ion-item class="item-stable"
-                  ng-click="toggleGroup(chat.DOC_NAME)"
-                  ng-class="{active: isGroupShown(chat.DOC_NAME)}">
+        <ion-item class="item-stable" ng-click="toggleGroup(chat.DOC_NAME)" ng-class="{active: isGroupShown(chat.DOC_NAME)}">
           <i class="icon" ng-class="isGroupShown(chat.DOC_NAME) ? 'ion-minus' : 'ion-plus'"></i>
           &nbsp;
           {{chat.DOC_NAME}}

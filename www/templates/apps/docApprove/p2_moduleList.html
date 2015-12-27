@@ -1,6 +1,7 @@
 <ion-view cache-view="false" >
   <ion-nav-buttons side="right" >
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    <button menu-toggle="left" class="button button-icon icon ion-navicon">
+    </button>
   </ion-nav-buttons>
   <ion-nav-title>
     <span>אישור טפסים</span>
@@ -8,17 +9,17 @@
   <ion-content class="pele-background">
     <ion-refresher pulling-text="משוך לרענון..."  on-refresh="doRefresh()">
     </ion-refresher>
-    <div class="row row-top">
-      <img src="img/DocApprove/pele_header_1.png" class="pele-img-size">
+    <div class="pele-page-title pele-img-size pele-page-title-font">
+      <a>רשימת טפסים לאישור</a>
     </div>
     <div class="list category-feeds">
-      <a ng-repeat="source in category_sources" class="item item-icon-right" ng-click="onClick(source.MODULE_NAME)">
-        <div>
-          <span class="title">{{source.MODULE_DESC}}</span>
-          <p class="description">{{source.MODULE_NAME}}</p>
+      <a ng-repeat="source in category_sources" class="pele-item item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )">
+        <div class="app-button">
+
+          <p class="description">({{source.DOCUMENT_QTY}})&nbsp;&nbsp;{{source.MODULE_DESC}}</p>
         </div>
-        <i class="icon ion-arrow-right-c"></i>
-        <span class="badge badge-assertive">{{source.DOCUMENT_QTY}}</span>
+        <!--<i class="icon ion-arrow-right-c"></i>-->
+        <!--<span class="badge badge-assertive">{{source.DOCUMENT_QTY}}</span>-->
       </a>
     </div>
   </ion-content>
