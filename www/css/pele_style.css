@@ -3,9 +3,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     padding: 0;
     border: 0;
     vertical-align: baseline;
-
-    font-size: 24px;
-    color: black;
    }
 
 .disabled {cursor:none;background:#CCC;color:#eee;}
@@ -91,15 +88,13 @@ textarea.pele-no-resize
 span.tab{
     padding: 0 30px;
 }
-
-ion-view.feed-entries-view{direction: rtl;}
 /* -----------------------------------------------
    -- When        Who        Description
    -- ==========  =========  ======================
    -- 20/10/2015  R.W.       Accordion Style
    -----------------------------------------------
 */
-a.item{
+a.pele-item{
     border:none;
     background: transparent;
     background-size: 100% !important;
@@ -108,18 +103,71 @@ a.item{
     padding:0px;
     margin: 10px 50px 10px 50px ;
 }
-a.item :hover{
+a.pele-item :hover{
     background: url("../img/DocApprove/menu_button_blue.png") center;
     background-size: 100% !important;
     background-repeat:no-repeat;
 
 }
-a.item :focus{
+a.pele-item :focus{
     background: url("../img/DocApprove/menu_button_blue.png") center;
     background-size: 100% !important;
     background-repeat:no-repeat;
+}
+
+/*----------------------------------------------------------*/
+/*-- When        Who       Description
+/*-- ==========  ========  ============================== --*/
+/*-- 27/12/2015  R.W.
+/*----------------------------------------------------------*/
+div.pele-item{
+  border:none;
+  background: transparent;
+  background-size: 100% !important;
+  background: url("../img/DocApprove/menu_button_grey.png") center;
+  background-repeat:no-repeat;
+  padding:0px;
+  margin: 0px 0px 0px 0px ;
+}
+div.pele-item :hover{
+  background: url("../img/DocApprove/menu_button_blue.png") center;
+  background-size: 100% !important;
+  background-repeat:no-repeat;
 
 }
+div.pele-item :focus{
+  background: url("../img/DocApprove/menu_button_blue.png") center;
+  background-size: 100% !important;
+  background-repeat:no-repeat;
+}
+
+
+.pele-list .item.item-accordion {
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: 0.09s all linear;
+
+}
+.pele-list .item.item-accordion.ng-hide {
+    line-height: 0px;
+}
+.pele-list .item.item-accordion.ng-hide-add,
+.pele-list .item.item-accordion.ng-hide-remove {
+    display: block !important;
+}
+div.login-form {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+div.app-button{
+
+}
+
+
 p.description{
     font-size: 24px !important;
     color: black !important;
@@ -127,78 +175,56 @@ p.description{
     text-align: center;
     vertical-align: middle;
     padding: 30px;
-    /* direction: rtl;*/
+}
+.description{
+  font-size: 24px !important;
+  color: black !important;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  padding: 30px;
 }
 
-/************************************/
-label.item{
-    background-color: #3F3F3D;
+.row{padding: 0px !important; }
+/*----------------------------------------------------------------*/
+/* When        Who         Description                            */
+/* ==========  ==========  ====================================== */
+/* 24/12/2015  R.W.        Css for page Title                     */
+/*----------------------------------------------------------------*/
+.pele-page-title{
+  border:none;
+  background: transparent;
+  background-size: 100% !important;
+  background: url("../img/DocApprove/pele_header_1.png") center;
+  background-repeat:no-repeat;
+  padding: 10px;
+  text-align: center;
 }
-input.search-area{background-image: url("../img/DocApprove/search_box.png");
-    background-size: 100% 32px !important;
-    background-repeat:no-repeat;
-    height:32px !important;
-    padding: 0px;
-   /* direction:rtl ;*/
-}
-a.search-icon{background-image: url("../img/DocApprove/search_button.png");
-    background-size: 100% 32px !important;
-    background-repeat:no-repeat;
-    height:32px ;
-    width: 32px;
-    padding: 0px;
-}
-
-a.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
-    background-size: 100% 24px !important;
-    background-repeat:no-repeat;
-    height:24px ;
-    width: 24px;
-    padding: 0px;
-    float: left;
-    display: inline-block;
-}
-
-a.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
-    background-size: 100% 24px !important;
-    background-repeat:no-repeat;
-    height:24px ;
-    width: 24px;
-    padding: 0px;
-    float: left;
-    display: inline-block;
-}
-
-ion-item.item-stable{text-align: right;}
-span.item-title{
-/* direction: rtl;*/
-    text-align: right;
-    padding: 0px 25px 0px 5px;
-    font-weight: bold;
-    font-size: 24px;
-    color: black;
-}
-
-/************************************/
-
-.list .item.item-accordion {
-    line-height: 38px;
-    padding-top: 0;
-    padding-bottom: 0;
-    transition: 0.09s all linear;
-
-}
-.list .item.item-accordion.ng-hide {
-    line-height: 0px;
-}
-.list .item.item-accordion.ng-hide-add,
-.list .item.item-accordion.ng-hide-remove {
-    display: block !important;
-}
-
-div.login-form {
-  position: fixed;
+.pele-img-place{
+  position: absolute;
+  top: 0;
+  bottom: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  margin: auto;
 }
+
+.pele-page-title-font{
+  font-size: 25px;
+  color: #000;
+
+}
+.pele-popup-positive_text-collot{
+  color:white;
+}
+
+pele-button{
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0;
+}
+
+
+
+
+

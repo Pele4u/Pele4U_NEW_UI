@@ -9,24 +9,22 @@
     <!-- Refresh to get the new posts -->
     <ion-refresher pulling-text="משוך לרענון..."  on-refresh="doRefresh()">
     </ion-refresher>
-    <div class="row-top">
-      <img src="img/DocApprove/pele_header_1.png" class="pele-img-size">
-      <span></span>
+    <div class="pele-page-title pele-img-size pele-page-title-font">
+      <a>{{title}}</a>
     </div>
-    <label class="item item-input"  ng-click="searchBarCreteria()">
-
+    <label class="item item-input" dir="rtl" ng-click="searchBarCreteria()">
+      <a class="button button-icon icon ion-search" ></a>
       <!--<i class="icon ion-search placeholder-icon"></i>-->
-      <input type="search" class="search-area" placeholder="חיפוש"ng-model="searchText.text">
-      <a class="search-icon" ></a>
+      <input type="search" placeholder="חיפוש" ng-model="searchText.text">
     </label>
 
     <ion-list>
       <div ng-repeat="chat in chats">
-        <ion-item class="item-stable"
-                  ng-click="toggleGroup(chat.DOC_NAME)"
-                  ng-class="{active: isGroupShown(chat.DOC_NAME)}">
-          <a ng-class="isGroupShown(chat.DOC_NAME) ? 'icon-expand' : 'icon-collapse'"></a>
-          <span class="item-title">{{chat.DOC_NAME}}&nbsp;({{chat.FORM_QTY}})</span>
+        <ion-item class="item-stable" ng-click="toggleGroup(chat.DOC_NAME)" ng-class="{active: isGroupShown(chat.DOC_NAME)}">
+          <i class="icon" ng-class="isGroupShown(chat.DOC_NAME) ? 'ion-minus' : 'ion-plus'"></i>
+          &nbsp;
+          {{chat.DOC_NAME}}
+          <span class="badge badge-assertive">{{chat.FORM_QTY}}</span>
         </ion-item>
         <ion-item class="item-accordion item-remove-animate item-avatar item-icon-right" ng-repeat="item in chat.DOCUMENTS.DOCUMENTS_ROW | filter:searchText.text" ng-show="isGroupShown(chat.DOC_NAME)" ng-click="forwardToDoc(item.DOC_ID, item.DOC_INIT_ID)">
           <img ng-src="img/employees/worker.png">
