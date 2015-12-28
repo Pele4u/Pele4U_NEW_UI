@@ -14,9 +14,10 @@
       <span></span>
     </div>
     <label class="item item-input"  ng-click="searchBarCreteria()">
-      <a class="search-icon" ></a>
+
       <!--<i class="icon ion-search placeholder-icon"></i>-->
       <input type="search" class="search-area" placeholder="חיפוש"ng-model="searchText.text">
+      <a class="search-icon" ></a>
     </label>
 
     <ion-list>
@@ -24,12 +25,8 @@
         <ion-item class="item-stable"
                   ng-click="toggleGroup(chat.DOC_NAME)"
                   ng-class="{active: isGroupShown(chat.DOC_NAME)}">
-          <i ng-class="isGroupShown(chat.DOC_NAME) ? 'icon-collapse' : 'icon-expand'"></i>
-
-          &nbsp;
-          {{chat.DOC_NAME}}
-
-         <span class="badge badge-assertive">{{chat.FORM_QTY}}</span>
+          <a ng-class="isGroupShown(chat.DOC_NAME) ? 'icon-expand' : 'icon-collapse'"></a>
+          <span class="item-title">{{chat.DOC_NAME}}&nbsp;({{chat.FORM_QTY}})</span>
         </ion-item>
         <ion-item class="item-accordion item-remove-animate item-avatar item-icon-right" ng-repeat="item in chat.DOCUMENTS.DOCUMENTS_ROW | filter:searchText.text" ng-show="isGroupShown(chat.DOC_NAME)" ng-click="forwardToDoc(item.DOC_ID, item.DOC_INIT_ID)">
           <img ng-src="img/employees/worker.png">

@@ -3,6 +3,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     padding: 0;
     border: 0;
     vertical-align: baseline;
+
+    font-size: 24px;
+    color: black;
    }
 
 .disabled {cursor:none;background:#CCC;color:#eee;}
@@ -88,6 +91,8 @@ textarea.pele-no-resize
 span.tab{
     padding: 0 30px;
 }
+
+ion-view.feed-entries-view{direction: rtl;}
 /* -----------------------------------------------
    -- When        Who        Description
    -- ==========  =========  ======================
@@ -122,6 +127,7 @@ p.description{
     text-align: center;
     vertical-align: middle;
     padding: 30px;
+    /* direction: rtl;*/
 }
 
 /************************************/
@@ -133,7 +139,7 @@ input.search-area{background-image: url("../img/DocApprove/search_box.png");
     background-repeat:no-repeat;
     height:32px !important;
     padding: 0px;
-    direction:rtl ;
+   /* direction:rtl ;*/
 }
 a.search-icon{background-image: url("../img/DocApprove/search_button.png");
     background-size: 100% 32px !important;
@@ -143,19 +149,35 @@ a.search-icon{background-image: url("../img/DocApprove/search_button.png");
     padding: 0px;
 }
 
-.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
-    background-size: 100% 32px !important;
+a.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
+    background-size: 100% 24px !important;
     background-repeat:no-repeat;
-    height:32px ;
-    width: 32px;
-    padding: 0px;}
+    height:24px ;
+    width: 24px;
+    padding: 0px;
+    float: left;
+    display: inline-block;
+}
 
-.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
-    background-size: 100% 32px !important;
+a.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
+    background-size: 100% 24px !important;
     background-repeat:no-repeat;
-    height:32px ;
-    width: 32px;
-    padding: 0px;}
+    height:24px ;
+    width: 24px;
+    padding: 0px;
+    float: left;
+    display: inline-block;
+}
+
+ion-item.item-stable{text-align: right;}
+span.item-title{
+/* direction: rtl;*/
+    text-align: right;
+    padding: 0px 25px 0px 5px;
+    font-weight: bold;
+    font-size: 24px;
+    color: black;
+}
 
 /************************************/
 
