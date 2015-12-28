@@ -39,24 +39,6 @@ angular.module('pele.controllers', [])
   // var envRes = _.find(appSettings.enviromentLinks, {Environment: appSettings.enviroment});
   // var servRes = _.find(envRes.ServiceList, {Service: "GetUserMenu"});
 
-  //=======================================================//
-  //== When        Who         Description               ==//
-  //== ----------  ----------  ------------------------- ==//
-  //== 27/12/2015  R.W.                                  ==//
-  //=======================================================//
-  $scope.getBtnClass = function(){
-    var retClass = "";
-    if(btnClass.activ){
-      retClass = "pele-menu-item-on-touch item item-icon-right"
-    }else{
-      retClass = "pele-menu-item-on-release item item-icon-right";
-    }
-    $scope.class = retClass;
-
-  }; // getBtnClass
-  $scope.onBtnAction = function(){
-    btnClass.activ = !btnClass.activ;
-  };
   $scope.doRefresh = function(){
     /*
     $ionicLoading.show({
@@ -149,9 +131,7 @@ angular.module('pele.controllers', [])
   //-------------------------------//
   //--       Code Section        --//
   //-------------------------------//
-  var btnClass={};
-  btnClass.activ = false;
-  $scope.class = "pele-menu-item-on-touch item-icon-right";
+
   $scope.doRefresh();
 })
 
@@ -195,22 +175,24 @@ angular.module('pele.controllers', [])
       }, 1000);
     };
     //======= onClick ========//
-    $scope.onClick = function (formType, docQty) {
-      if(0 < docQty){
-        if("wifi" === config_app.network){
-          $ionicLoading.hide();
-          $scope.$broadcast('scroll.refreshComplete');
-          PelApi.showPopup(config_app.wifiTitle , config_app.wifiSubTitle);
-        }else{
-          var appId = $stateParams.AppId;
-          $state.go("app.p3_moduleDocList", {AppId: appId, FormType: formType, pin:"0"});
-        }
+    $scope.onClick = function (formType) {
+      if("wifi" === config_app.network){
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.refreshComplete');
+        PelApi.showPopup(config_app.wifiTitle , config_app.wifiSubTitle);
+      }else{
+        var appId = $stateParams.AppId;
+        $state.go("app.p3_moduleDocList", {AppId: appId, FormType: formType, pin:"0"});
       }
     };
 
     //===================== Refresh ===========================//
     $scope.doRefresh = function(){
-
+      /*
+      $ionicLoading.show({
+        template: config_app.loadingMsg
+      });
+      */
       PelApi.showLoading();
 
       var appId = $stateParams.AppId;
@@ -314,9 +296,12 @@ angular.module('pele.controllers', [])
 
     //----------------------- REFRESH ------------------------//
     $scope.doRefresh = function() {
-
+      /*
+      $ionicLoading.show({
+        template: config_app.loadingMsg
+      });
+      */
       PelApi.showLoading();
-
       var appId = $stateParams.AppId,
         formType = $stateParams.FormType,
         pin = $stateParams.pin;
@@ -339,13 +324,7 @@ angular.module('pele.controllers', [])
               var pinStatus = PelApi.GetPinCodeStatus(data, "GetUserFormGroups");
 
               if ("Valid" === pinStatus) {
-
                 $scope.chats = data.Response.OutParams.ROW;
-                $scope.title = "";
-                var rowLength = $scope.chats.length;
-                if(rowLength > 0){
-                  $scope.title = $scope.chats[1].DOC_TYPE;
-                }
                 $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
               } else if ("PDA" === pinStatus) {
@@ -430,10 +409,13 @@ angular.module('pele.controllers', [])
       var appId = $stateParams.AppId;
       var statePath = 'app.doc_' + docId;
       if("wifi" === config_app.network){
+        $ionicLoading.hide();
+        $scope.$broadcast('scroll.refreshComplete');
         PelApi.showPopup(config_app.wifiTitle , config_app.wifiSubTitle);
       }else {
         PelApi.showLoading();
-
+        //=============================================================================
+        //=============================================================================
         var links = PelApi.getDocApproveServiceUrl("GetUserNotif");
 
         var retGetUserNotifications = PelApi.GetUserNotifications(links, appId, docId, docInitId);
@@ -456,10 +438,6 @@ angular.module('pele.controllers', [])
               }else{
                 config_app.ApprovRejectBtnDisplay = false;
               }
-
-              $ionicLoading.hide();
-              $scope.$broadcast('scroll.refreshComplete');
-
               $state.go(statePath, {"AppId": appId, "DocId": docId, "DocInitId": docInitId});
             }).error(function (data, status, headers, config) {
                 $ionicLoading.hide();
@@ -542,6 +520,12 @@ angular.module('pele.controllers', [])
       $scope.style = {
         color: 'red'
       };
+      /*
+      $ionicLoading.show({
+        template: config_app.loadingMsg
+      });
+      */
+      PelApi.showLoading();
 
       var appId = $stateParams.AppId,
         docId = $stateParams.DocId,
@@ -570,6 +554,66 @@ angular.module('pele.controllers', [])
         $ionicLoading.hide();
         $scope.$broadcast('scroll.refreshComplete');
 
+        /*
+        var links = PelApi.getDocApproveServiceUrl("GetUserNotif");
+
+        var retGetUserNotifications = PelApi.GetUserNotifications(links, appId, docId, docInitId);
+        retGetUserNotifications.then(
+          //--- SUCCESS ---//
+          function () {
+            retGetUserNotifications.success(function (data, status, headers, config) {
+              var strData = JSON.stringify(data);
+              strData = strData.replace(/\\/g, "");
+              strData = strData.replace(/"{/g, "{");
+              strData = strData.replace(/}"/g, "}");
+
+              var newData = JSON.parse(strData);
+              source = newData.Response.OutParams.Result.ROWSET.ROW;
+              //--------------------------------------------------
+              //--             Set Doc Details
+              //--------------------------------------------------
+              $scope.docDetails = source;
+              $scope.sourceTitle = source.DOC_NAME;
+              $scope.CREATOR = source.CREATOR;
+              $scope.EMP_NUMBER = source.EMP_NUMBER;
+              $scope.SECTOR = source.SECTOR;
+              $scope.DEPARTMENT = source.DEPARTMENT;
+              $scope.DOC_INIT_ID = source.DOC_INIT_ID;
+              $scope.SENT_DATE = source.SENT_DATE;
+              $scope.NOTIFICATION_ID = source.NOTIFICATION_ID;
+
+              var buttonsLength = $scope.docDetails.BUTTONS.length;
+              // Show the action sheet
+              if(2 === buttonsLength) {
+                $scope.ApprovReject = "pele_show";
+                $scope.Ok = "pele_hide";
+              }else{
+                $scope.ApprovReject = "pele_hide";
+                $scope.Ok = "pele_show";
+              }
+              $ionicLoading.hide();
+              $scope.$broadcast('scroll.refreshComplete');
+
+            });
+
+          }
+          //--- ERROR ---//
+          , function () {
+
+            retGetUserNotifications.success(function (data, status, headers, config) {
+              $ionicLoading.hide();
+              $scope.$broadcast('scroll.refreshComplete');
+              PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
+
+            }).error(function (data, status, headers, config) {
+              $ionicLoading.hide();
+              $scope.$broadcast('scroll.refreshComplete');
+              PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
+
+            });
+          }
+        );
+        */
       }
     }; // doRefresh
 
@@ -642,20 +686,20 @@ angular.module('pele.controllers', [])
           scope: $scope,
           buttons: [
             {
-              text: '<a class="pele-popup-positive_text-collot">כן</a>',
-              type: 'button-positive',
-              onTap: function (e) {
-                return true;
-              }
-            },
-            {
-              text: '<a class="pele-popup-positive_text-collot">לא</a>',
-              type: 'button-assertive',
+              text: '<b>לא</b>',
+              type: 'button-stable',
               onTap: function (e) {
 
                 return false;
               }
             },
+            {
+              text: '<b>כן</b>',
+              type: 'button-positive',
+              onTap: function (e) {
+                return true;
+              }
+            }
           ]
         });
         myYesNoPopup.then(function (res) {
@@ -670,8 +714,15 @@ angular.module('pele.controllers', [])
               subTitle: '',
               scope: $scope,
               buttons: [
+                {text: 'ביטול',
+                  onTap: function (e) {
+                      $scope.data.note = "";
+                      $scope.data.cancel = true;
+                      return $scope.data;
+                    }
+                },
                 {
-                  text: '<a class="pele-popup-positive_text-collot">שמירה</a>',
+                  text: '<b>שמירה</b>',
                   type: 'button-positive',
                   onTap: function (e) {
                     if (!$scope.data.note) {
@@ -681,14 +732,6 @@ angular.module('pele.controllers', [])
                       $scope.data.cancel = false;
                       return $scope.data;
                     }
-                  }
-                },
-                {text: 'ביטול',
-                  type: 'button-assertive',
-                  onTap: function (e) {
-                    $scope.data.note = "";
-                    $scope.data.cancel = true;
-                    return $scope.data;
                   }
                 },
               ]
@@ -839,8 +882,9 @@ angular.module('pele.controllers', [])
           subTitle: '',
           scope: $scope,
           buttons: [
+            {text: 'בטול'},
             {
-              text: '<a class="pele-popup-positive_text-collot">שמירה</a>',
+              text: '<b>שמירה</b>',
               type: 'button-positive',
               onTap: function (e) {
                 if (!$scope.data.note) {
@@ -851,9 +895,6 @@ angular.module('pele.controllers', [])
                   return $scope.data.note;
                 }
               }
-            },
-            {text: 'ביטול',
-             type: 'button-assertive'
             },
           ]
         });

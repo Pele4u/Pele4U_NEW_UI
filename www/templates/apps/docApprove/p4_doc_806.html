@@ -3,12 +3,13 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-nav-title>
-    <span></span>
+    <span>טופס דיווח עבודה מהבית</span>
   </ion-nav-title>
   <ion-content scroll="false">
-    <div class="pele-page-title pele-img-size pele-page-title-font">
-      <a>טופס דיווח עבודה מהבית</a>
-    </div>
+    <!--
+    <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+    </ion-refresher>
+    -->
     <tab-slide-box>
       <div class="tsb-icons">
         <div class="tsb-ic-wrp">
@@ -23,7 +24,7 @@
         <!----------------------------- Approve List Slide ------------------------------->
         <!-------------------------------------------------------------------------------->
         <ion-slide>
-          <ion-scroll style="height:80%" delegate-handle="slide1Scroll" >
+          <ion-scroll style="height:90%" delegate-handle="slide1Scroll" >
             <div class="item item-divider "><a class="float-right">פרטי עובד</a></div>
 
             <label class="item item-thumbnail-left">
