@@ -23,36 +23,41 @@
       </div>
     </div>
     -->
+    <!--
     <div class="list pele-list category-feeds">
       <a ng-repeat="category in feeds_categories.menuItems" class="pele-item item item-icon-right" ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)">
 
         <div class="app-button">
-          <!--<span class="title">{{source.MODULE_DESC}}</span>-->
           <p class="description">{{category.DisplayName}}</p>
         </div>
 
       </a>
     </div>
-
-
-    <!--
-
+    -->
+    <div class="row row-bottom">
+      <div class="col"></div>
+    </div>
     <div class="row row-bottom" ng-repeat="category in feeds_categories.menuItems">
 
       <div class="row row-bottom " ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)">
         <div class="col col-10"></div>
-        <div class="col col-80">
-            <button class="button button-block button-large button-stable">
-            <pre-img ratio="_1_1">
-              <img ng-src="img/DocApprove/menu_doc_icon.png" spinner-on-load class="float-right pele-img-size">
-            </pre-img>
-            <span class="pele-menu-title">{{category.DisplayName}}</span>
-            </button>
+        <div class="col col-80 pele-item item item-icon-right">
+          <div class="row row-center">
+            <div class="col col-80">
+              <div class="app-button">
+                <p class="description">{{category.DisplayName}}</p>
+              </div>
+            </div>
+            <div class="col col-20">
+              <div class="app-button"  >
+                <img ng-src="{{category.Image}}" spinner-on-load class="float-right " style="max-width:100%;height:auto; vertical-align: middle" >
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col col-10"></div>
       </div>
     </div>
-    -->
 
   </ion-content>
 </ion-view>

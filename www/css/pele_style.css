@@ -115,6 +115,33 @@ a.pele-item :focus{
     background-repeat:no-repeat;
 }
 
+/*----------------------------------------------------------*/
+/*-- When        Who       Description
+/*-- ==========  ========  ============================== --*/
+/*-- 27/12/2015  R.W.
+/*----------------------------------------------------------*/
+div.pele-item{
+  border:none;
+  background: transparent;
+  background-size: 100% !important;
+  background: url("../img/DocApprove/menu_button_grey.png") center;
+  background-repeat:no-repeat;
+  padding:0px;
+  margin: 0px 0px 0px 0px ;
+}
+div.pele-item :hover{
+  background: url("../img/DocApprove/menu_button_blue.png") center;
+  background-size: 100% !important;
+  background-repeat:no-repeat;
+
+}
+div.pele-item :focus{
+  background: url("../img/DocApprove/menu_button_blue.png") center;
+  background-size: 100% !important;
+  background-repeat:no-repeat;
+}
+
+
 .pele-list .item.item-accordion {
     line-height: 38px;
     padding-top: 0;
@@ -149,6 +176,14 @@ p.description{
     vertical-align: middle;
     padding: 30px;
 }
+.description{
+  font-size: 24px !important;
+  color: black !important;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: middle;
+  padding: 30px;
+}
 
 .row{padding: 0px !important; }
 /*----------------------------------------------------------------*/
@@ -165,6 +200,14 @@ p.description{
   padding: 10px;
   text-align: center;
 }
+.pele-img-place{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
 
 .pele-page-title-font{
   font-size: 25px;
@@ -174,4 +217,14 @@ p.description{
 .pele-popup-positive_text-collot{
   color:white;
 }
+
+pele-button{
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 0;
+}
+
+
+
+
 

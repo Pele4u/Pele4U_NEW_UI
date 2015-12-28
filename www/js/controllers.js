@@ -39,6 +39,24 @@ angular.module('pele.controllers', [])
   // var envRes = _.find(appSettings.enviromentLinks, {Environment: appSettings.enviroment});
   // var servRes = _.find(envRes.ServiceList, {Service: "GetUserMenu"});
 
+  //=======================================================//
+  //== When        Who         Description               ==//
+  //== ----------  ----------  ------------------------- ==//
+  //== 27/12/2015  R.W.                                  ==//
+  //=======================================================//
+  $scope.getBtnClass = function(){
+    var retClass = "";
+    if(btnClass.activ){
+      retClass = "pele-menu-item-on-touch item item-icon-right"
+    }else{
+      retClass = "pele-menu-item-on-release item item-icon-right";
+    }
+    $scope.class = retClass;
+
+  }; // getBtnClass
+  $scope.onBtnAction = function(){
+    btnClass.activ = !btnClass.activ;
+  };
   $scope.doRefresh = function(){
     /*
     $ionicLoading.show({
@@ -131,7 +149,9 @@ angular.module('pele.controllers', [])
   //-------------------------------//
   //--       Code Section        --//
   //-------------------------------//
-
+  var btnClass={};
+  btnClass.activ = false;
+  $scope.class = "pele-menu-item-on-touch item-icon-right";
   $scope.doRefresh();
 })
 
