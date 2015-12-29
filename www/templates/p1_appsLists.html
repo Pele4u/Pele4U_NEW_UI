@@ -7,7 +7,7 @@
     </ion-refresher>
 
     <div class="pele-page-title pele-img-size pele-page-title-font">
-      <a>רשימת אפליקציות</a>
+      <a class="description">רשימת אפליקציות</a>
     </div>
     <!-- Source Version
     <div class="row categories-list">
@@ -39,20 +39,16 @@
     </div>
     <div class="row row-bottom" ng-repeat="category in feeds_categories.menuItems">
 
-      <div class="row row-bottom " ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)">
+      <div class="row" ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)">
         <div class="col col-10"></div>
         <div class="col col-80 pele-item item item-icon-right">
           <div class="row row-center">
-            <div class="col col-80">
-              <div class="app-button">
-                <p class="description">{{category.DisplayName}}</p>
-              </div>
-            </div>
-            <div class="col col-20">
-              <div class="app-button"  >
-                <img ng-src="{{category.Image}}" spinner-on-load class="float-right " style="max-width:100%;height:auto; vertical-align: middle" >
-              </div>
-            </div>
+              <a class="col col-80">
+                  <p class="description">{{category.DisplayName}}</p>
+              </a>
+              <a class="col col-20">
+                  <img ng-src="{{category.Image}}" spinner-on-load class="float-right " style="max-width:100%;height:auto; vertical-align: middle" >
+              </a>
           </div>
         </div>
         <div class="col col-10"></div>
