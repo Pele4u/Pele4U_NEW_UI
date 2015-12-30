@@ -202,3 +202,44 @@ div.login-form {
     right: 0;
     bottom: 0;
 }
+
+.row{padding: 0px !important; }
+/*----------------------------------------------------------------*/
+/* When        Who         Description                            */
+/* ==========  ==========  ====================================== */
+/* 24/12/2015  R.W.        Css for page Title                     */
+/*----------------------------------------------------------------*/
+.pele-page-title{
+    border:none;
+    background: transparent;
+    background-size: 100% !important;
+    background: url("../img/DocApprove/pele_header_1.png") center;
+    background-repeat:no-repeat;
+    padding: 10px;
+    text-align: center;
+}
+.pele-img-place{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.pele-page-title-font{
+    font-size: 25px;
+    color: #000;
+
+}
+.pele-popup-positive_text-collot{
+    color:white;
+}
+
+pele-button{
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 0;
+}
+
+
