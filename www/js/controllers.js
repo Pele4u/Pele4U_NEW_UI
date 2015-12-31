@@ -344,7 +344,7 @@ angular.module('pele.controllers', [])
                 $scope.title = "";
                 var rowLength = $scope.chats.length;
                 if(rowLength > 0){
-                  $scope.title = $scope.chats[1].DOC_TYPE;
+                  $scope.title = $scope.chats[0].DOC_TYPE;
                 }
                 $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
