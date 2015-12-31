@@ -12,15 +12,20 @@
     <div class="pele-page-title pele-img-size pele-page-title-font">
       <a class="description">רשימת טפסים לאישור</a>
     </div>
-    <div class="list category-feeds">
-      <a ng-repeat="source in category_sources" class="pele-item item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )">
-        <div class="app-button">
+    <div class="list category-feeds" ng-repeat="source in category_sources" ng-model="btn_class.on_release" on-touch="btn_class.on_release = !btn_class.on_release" on-release="btn_class.on_release = !btn_class.on_release">
 
+      <div  class="pele-item-on-release item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )" ng-show ="btn_class.on_release">
+        <div class="app-button">
           <p class="description">({{source.DOCUMENT_QTY}})&nbsp;&nbsp;{{source.MODULE_DESC}}</p>
         </div>
-        <!--<i class="icon ion-arrow-right-c"></i>-->
-        <!--<span class="badge badge-assertive">{{source.DOCUMENT_QTY}}</span>-->
-      </a>
+      </div>
+
+      <div class="pele-item-on-touch item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )" ng-show ="!btn_class.on_release">
+        <div class="app-button">
+          <p class="description">({{source.DOCUMENT_QTY}})&nbsp;&nbsp;{{source.MODULE_DESC}}</p>
+        </div>
+      </div>
+
     </div>
   </ion-content>
 </ion-view>

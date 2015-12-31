@@ -88,39 +88,12 @@ textarea.pele-no-resize
 span.tab{
     padding: 0 30px;
 }
-/* -----------------------------------------------
-   -- When        Who        Description
-   -- ==========  =========  ======================
-   -- 20/10/2015  R.W.       Accordion Style
-   -----------------------------------------------
-*/
-a.pele-item{
-    border:none;
-    background: transparent;
-    background-size: 100% !important;
-    background: url("../img/DocApprove/menu_button_grey.png") center;
-    background-repeat:no-repeat;
-    padding:0px;
-    margin: 10px 50px 10px 50px ;
-}
-a.pele-item :hover{
-    background: url("../img/DocApprove/menu_button_blue.png") center;
-    background-size: 100% !important;
-    background-repeat:no-repeat;
-
-}
-a.pele-item :focus{
-    background: url("../img/DocApprove/menu_button_blue.png") center;
-    background-size: 100% !important;
-    background-repeat:no-repeat;
-}
-
 /*----------------------------------------------------------*/
 /*-- When        Who       Description
 /*-- ==========  ========  ============================== --*/
 /*-- 27/12/2015  R.W.
 /*----------------------------------------------------------*/
-div.pele-item{
+div.pele-item-on-release{
   border:none;
   background: transparent;
   background-size: 100% !important;
@@ -129,18 +102,15 @@ div.pele-item{
   padding:0px;
   margin: 0px 0px 0px 0px ;
 }
-div.pele-item :hover{
-  background: url("../img/DocApprove/menu_button_blue.png") center;
+div.pele-item-on-touch{
+  border:none;
+  background: transparent;
   background-size: 100% !important;
-  background-repeat:no-repeat;
-
-}
-div.pele-item :focus{
   background: url("../img/DocApprove/menu_button_blue.png") center;
-  background-size: 100% !important;
   background-repeat:no-repeat;
+  padding:0px;
+  margin: 0px 0px 0px 0px ;
 }
-
 
 .pele-list .item.item-accordion {
     line-height: 38px;
