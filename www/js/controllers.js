@@ -58,6 +58,9 @@ angular.module('pele.controllers', [])
     btnClass.activ = !btnClass.activ;
   };
   $scope.doRefresh = function(){
+    $scope.btn_class = {};
+    $scope.btn_class.on_release = true;
+
     /*
     $ionicLoading.show({
       template: config_app.loadingMsg
@@ -210,6 +213,8 @@ angular.module('pele.controllers', [])
 
     //===================== Refresh ===========================//
     $scope.doRefresh = function(){
+      $scope.btn_class = {};
+      $scope.btn_class.on_release = true;
 
       PelApi.showLoading();
 
@@ -303,6 +308,8 @@ angular.module('pele.controllers', [])
     }; // doRefresh
     //======= dats section ====//
     $scope.category_sources = [];
+    $scope.btn_class = {};
+    $scope.btn_class.on_release = true
     $scope.doRefresh();
 
   })
