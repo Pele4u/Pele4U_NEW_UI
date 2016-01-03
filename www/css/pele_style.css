@@ -279,8 +279,6 @@ a.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
 }
 
 
-ion-item.item-stable{text-align: right;}
-ion-item.item-doc-list{margin-top:2px; margin-bottom: 2px; background-color: #CECECE;}
 span.item-title{
     /* direction: rtl;*/
     text-align: right;
@@ -289,3 +287,11 @@ span.item-title{
     font-size: 24px;
     color: black;
 }
+
+
+ion-item.item-stable{text-align: right;}
+ion-item.item-stable :active{background-color: #FFFFFF !important;}
+ion-item.item-doc-list{margin-top:2px; margin-bottom: 2px; background-color: #CECECE; min-height: 64px; vertical-align: middle; border: none; }
+.item-doc-list img{height: 50px; float: left;  width:auto; border: none;}
+div.item-content{padding:5px 30px 5px 30px !important; border: none !important; background-color: #CECECE !important;  vertical-align: middle !important;}
+.item-doc h2{    padding: 15px 40px 0px 40px ;}
