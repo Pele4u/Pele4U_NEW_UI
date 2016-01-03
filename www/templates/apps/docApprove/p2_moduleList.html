@@ -12,14 +12,14 @@
     <div class="pele-page-title pele-img-size pele-page-title-font">
       <a class="description">רשימת טפסים לאישור</a>
     </div>
-
+    <div class="col"></div>
     <div ng-repeat="source in category_sources" ng-model="btn_class.on_release" on-touch="btn_class.on_release = !btn_class.on_release" on-release="btn_class.on_release = !btn_class.on_release">
       <div class="row" ng-show ="btn_class.on_release">
         <div class="col col-10"></div>
         <div class="col col-80 pele-item-on-release item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )">
 
           <div class="app-button">
-            <p class="description">({{source.DOCUMENT_QTY}})&nbsp;&nbsp;{{source.MODULE_DESC}}</p>
+            <p class="description">{{source.MODULE_DESC}}&nbsp;&nbsp;({{source.DOCUMENT_QTY}})</p>
           </div>
         </div>
         <div class="col col-10"></div>
@@ -30,7 +30,7 @@
         <div class="col col-80 pele-item-on-touch item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )">
 
           <div class="app-button">
-            <p class="description">({{source.DOCUMENT_QTY}})&nbsp;&nbsp;{{source.MODULE_DESC}}</p>
+            <p class="description">{{source.MODULE_DESC}}&nbsp;&nbsp;({{source.DOCUMENT_QTY}})</p>
           </div>
         </div>
         <div class="col col-10"></div>

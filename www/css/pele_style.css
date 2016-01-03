@@ -93,6 +93,51 @@ span.tab{
 /*-- ==========  ========  ============================== --*/
 /*-- 27/12/2015  R.W.
 /*----------------------------------------------------------*/
+
+.pele-background {
+    direction: rtl;
+    background-image: url('../img/DocApprove/background.png')
+}
+.pele-note-background{
+    background-image: url('../img/DocApprove/popup_background.png')
+}
+
+.pele-img-size{
+    max-width: 100%;
+    height: auto;
+}
+.pele-menu-title {
+    color: #444;
+    position: absolute;
+    top: 50px;
+    left: 30px;
+    font-weight: 500;
+    text-transform: capitalize;
+
+}
+.pele-menu-category {
+    /* height: -webkit-calc(50vw - 15px); */
+    /* height: calc(50vw - 15px); */
+    /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); */
+    border-radius: 2px;
+    position: relative;
+    display: block;
+}
+.pele-menu_btn-bg{
+    max-width: 100%;
+    height: auto;
+    background-image: url('../img/DocApprove/menu_button_grey.png');
+}
+.popup-body {
+    background-image : url('../img/DocApprove/popup_details.png');
+}
+
+.pele_show {
+    display: inline;
+}
+.pele_hide {
+    display: none;
+}
 div.pele-item-on-release{
   border:none;
   background: transparent;
@@ -114,9 +159,10 @@ div.pele-item-on-touch{
 
 .pele-list .item.item-accordion {
     line-height: 38px;
-    padding-top: 0;
-    padding-bottom: 0;
+    margin-top: 2px;
+    margin-bottom: 2px;
     transition: 0.09s all linear;
+    background-color: #CECECE;
 
 }
 .pele-list .item.item-accordion.ng-hide {
@@ -138,14 +184,6 @@ div.app-button{
 }
 
 
-p.description{
-    font-size: 24px !important;
-    color: black !important;
-    font-weight: bold;
-    text-align: center;
-    vertical-align: middle;
-    padding: 30px;
-}
 .description{
   font-size: 24px !important;
   color: black !important;
@@ -196,5 +234,58 @@ pele-button{
 
 
 
+/*----------------------------------------------------------------*/
+/* When        Who         Description                            */
+/* ==========  ==========  ====================================== */
+/* 31/12/2015  B.B.        Css Doc List                     */
+/*----------------------------------------------------------------*/
+
+label.item-search{
+    background-color: #3F3F3D;
+}
+input.search-area{background-image: url("../img/DocApprove/search_box.png");
+    background-size: 100% 32px !important;
+    background-repeat:no-repeat;
+    height:32px !important;
+    padding: 0px;
+    /* direction:rtl ;*/
+}
+a.search-icon{background-image: url("../img/DocApprove/search_button.png");
+    background-size: 100% 32px !important;
+    background-repeat:no-repeat;
+    height:32px ;
+    width: 32px;
+    padding: 0px;
+}
+
+a.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
+    background-size: 100% 24px !important;
+    background-repeat:no-repeat;
+    height:24px ;
+    width: 24px;
+    padding: 0px;
+    float: left;
+    display: inline-block;
+}
+
+a.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
+    background-size: 100% 24px !important;
+    background-repeat:no-repeat;
+    height:24px ;
+    width: 24px;
+    padding: 0px;
+    float: left;
+    display: inline-block;
+}
 
 
+ion-item.item-stable{text-align: right;}
+ion-item.item-doc-list{margin-top:2px; margin-bottom: 2px; background-color: #CECECE;}
+span.item-title{
+    /* direction: rtl;*/
+    text-align: right;
+    padding: 0px 25px 0px 5px;
+    font-weight: bold;
+    font-size: 24px;
+    color: black;
+}
