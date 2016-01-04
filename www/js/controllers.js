@@ -348,6 +348,7 @@ angular.module('pele.controllers', [])
               if ("Valid" === pinStatus) {
 
                 $scope.chats = data.Response.OutParams.ROW;
+                console.log($scope.chats);
                 $scope.title = "";
                 var rowLength = $scope.chats.length;
                 if(rowLength > 0){
@@ -561,6 +562,7 @@ angular.module('pele.controllers', [])
         //$state.go("app.p1_appsLists");
       }
       else {
+        console.log(config_app.docDetails);
         $scope.docDetails      = config_app.docDetails;
         $scope.sourceTitle     = config_app.docDetails.DOC_NAME;
         $scope.CREATOR         = config_app.docDetails.CREATOR;
@@ -649,14 +651,14 @@ angular.module('pele.controllers', [])
           scope: $scope,
           buttons: [
             {
-              text: '<a class="pele-popup-positive_text-collot">כן</a>',
+              text: '<a class="pele-popup-positive-text-collot">כן</a>',
               type: 'button-positive',
               onTap: function (e) {
                 return true;
               }
             },
             {
-              text: '<a class="pele-popup-positive_text-collot">לא</a>',
+              text: '<a class="pele-popup-positive-text-collot">לא</a>',
               type: 'button-assertive',
               onTap: function (e) {
 
@@ -673,12 +675,12 @@ angular.module('pele.controllers', [])
             $scope.data = {};
             var myPopup = $ionicPopup.show({
               template: '<div class="list pele-note-background" dir="RTL"><label class="item item-input"><textarea rows="8" ng-model="data.note" type="text"></textarea></label></div>',
-              title: '',
+              title: '<a class="float-right">הערות</a>',
               subTitle: '',
               scope: $scope,
               buttons: [
                 {
-                  text: '<a class="pele-popup-positive_text-collot">שמירה</a>',
+                  text: '<a class="pele-popup-positive-text-collot">שמירה</a>',
                   type: 'button-positive',
                   onTap: function (e) {
                     if (!$scope.data.note) {
@@ -826,9 +828,9 @@ angular.module('pele.controllers', [])
             );
         } // else WIFI
     };
-    //-----------------------------------
-    //--         REJECT
-    //-----------------------------------
+    //----------------------------------------
+    //--         REJECT                     --
+    //----------------------------------------
     $scope.docReject = function(){
       var appId = $stateParams.AppId;
       var notificationId = $scope.NOTIFICATION_ID;
@@ -842,12 +844,13 @@ angular.module('pele.controllers', [])
         $scope.data = {};
         var myPopup = $ionicPopup.show({
           template: '<div class="list pele-note-background" dir="RTL"><label class="item item-input"><textarea rows="8" ng-model="data.note" type="text"></textarea></label></div>',
-          title: '',
+          title: '<a class="float-right">הערות</a>',
           subTitle: '',
           scope: $scope,
           buttons: [
             {
-              text: '<a class="pele-popup-positive_text-collot">שמירה</a>',
+
+              text: '<a class="pele-popup-positive-text-collot">שמירה</a>',
               type: 'button-positive',
               onTap: function (e) {
                 if (!$scope.data.note) {

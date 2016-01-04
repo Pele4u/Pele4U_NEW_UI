@@ -4,7 +4,13 @@
     </button>
   </ion-nav-buttons>
   <ion-nav-title>
-    <span>אישור טפסים</span>
+    <!--<span>אישור טפסים</span>-->
+    <!-- -->
+    <div class="bar bar-header bar-light">
+      <div class="title" id="logo">
+        <img src="img/DocApprove/logo.png" style="max-width: 100%;  height: 100%;"/>
+      </div>
+    </div>
   </ion-nav-title>
   <ion-content class="pele-background">
     <ion-refresher pulling-text="משוך לרענון..."  on-refresh="doRefresh()">
@@ -12,12 +18,15 @@
     <div class="pele-page-title pele-img-size pele-page-title-font">
       <a class="description">רשימת טפסים לאישור</a>
     </div>
-    <div class="col"></div>
+
+    <div class="row row-bottom">
+      <div class="col"></div>
+    </div>
+
     <div ng-repeat="source in category_sources" ng-model="btn_class.on_release" on-touch="btn_class.on_release = !btn_class.on_release" on-release="btn_class.on_release = !btn_class.on_release">
       <div class="row" ng-show ="btn_class.on_release">
         <div class="col col-10"></div>
         <div class="col col-80 pele-item-on-release item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )">
-
           <div class="app-button">
             <p class="description">{{source.MODULE_DESC}}&nbsp;&nbsp;({{source.DOCUMENT_QTY}})</p>
           </div>
@@ -35,7 +44,7 @@
         </div>
         <div class="col col-10"></div>
       </div>
-
+      <!---->
       <!--
       <div class="pele-item-on-touch item item-icon-right" ng-click="onClick(source.MODULE_NAME ,source.DOCUMENT_QTY )" ng-show ="!btn_class.on_release">
         <div class="app-button">

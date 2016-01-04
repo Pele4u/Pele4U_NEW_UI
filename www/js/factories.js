@@ -226,7 +226,7 @@ angular.module('pele.factories', [])
         scope: $rootScope,
         buttons: [
           {
-            text: '<b>אישור</b>',
+            text: '<a class="pele-popup-positive-text-collot">אישור</a>',
             type: 'button-positive',
             onTap: function(e) {
               return true;
@@ -252,9 +252,9 @@ angular.module('pele.factories', [])
         subTitle: subTitleTxt,
         scope: $rootScope,
         buttons: [
-          { text: 'בטול' },
+          { text: '<a class="pele-popup-positive-text-collot">בטול</a>' },
           {
-            text: '<b>אישור</b>',
+            text: '<a class="pele-popup-positive-text-collot">אישור</a>',
             type: 'button-positive',
             onTap: function(e) {
               if (!$rootScope.data.pincode) {

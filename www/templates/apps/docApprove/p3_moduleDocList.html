@@ -3,7 +3,11 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-nav-title>
-    <span>{{sourceTitle}}</span>
+    <div class="bar bar-header bar-light">
+      <div class="title" id="logo">
+        <img src="img/DocApprove/logo.png" style="max-width: 100%;  height: 100%;"/>
+      </div>
+    </div>
   </ion-nav-title>
   <ion-content class="pele-background" onload="doRefresh()">
     <!-- Refresh to get the new posts -->
@@ -12,7 +16,7 @@
     <div class="pele-page-title pele-img-size pele-page-title-font">
       <a class="description">{{title}}</a>
     </div>
-
+    <!-- -->
     <!--<label class="item item-input"  ng-click="searchBarCreteria()">-->
 
       <!--&lt;!&ndash;<i class="icon ion-search placeholder-icon"></i>&ndash;&gt;-->
@@ -39,10 +43,11 @@
         <!--</ion-item>-->
       <!--</div>-->
     <!--</ion-list>-->
+    <!---->
     <label class="item item-input item-search"  ng-click="searchBarCreteria()">
 
       <!--<i class="icon ion-search placeholder-icon"></i>-->
-      <input type="search" class="search-area" placeholder="חיפוש"ng-model="searchText.text">
+      <input type="search" class="search-area" style="color:#fafafa;" placeholder="חיפוש"ng-model="searchText.text">
       <a class="search-icon" ></a>
     </label>
 
@@ -59,7 +64,7 @@
             <!--<div class="item-doc">-->
           <img ng-src="img/DocApprove/document_redirect.png">
           <h2>{{item.MESSAGE}}</h2>
-          <!--<h3>{{item.DOC_INIT_ID}}</h3>-->
+          <h3>{{item.DOC_INIT_ID}}</h3>
           <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
           <ion-option-button class="button-assertive" ng-click="remove(item.DOC_INIT_ID)">
             מחק

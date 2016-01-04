@@ -91,7 +91,7 @@ span.tab{
 /*----------------------------------------------------------*/
 /*-- When        Who       Description
 /*-- ==========  ========  ============================== --*/
-/*-- 27/12/2015  R.W.
+/*-- 27/12/2016  R.W.
 /*----------------------------------------------------------*/
 
 .pele-background {
@@ -222,7 +222,7 @@ div.app-button{
   color: #000;
 
 }
-.pele-popup-positive_text-collot{
+.pele-popup-positive-text-collot{
   color:white;
 }
 
@@ -284,7 +284,7 @@ span.item-title{
     text-align: right;
     padding: 0px 25px 0px 5px;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 16px;
     color: black;
 }
 
@@ -295,3 +295,14 @@ ion-item.item-doc-list{margin-top:2px; margin-bottom: 2px; background-color: #CE
 .item-doc-list img{height: 50px; float: left;  width:auto; border: none;}
 div.item-content{padding:5px 30px 5px 30px !important; border: none !important; background-color: #CECECE !important;  vertical-align: middle !important;}
 .item-doc h2{    padding: 15px 40px 0px 40px ;}
+.item-doc h3{    padding: 0px 40px 0px 40px ;}
+
+.bar.app-top-bar {
+  border:none;
+  background: transparent;
+  background-size: 100% !important;
+  background: url("../img/DocApprove/side_bar_background_dark.png") center;
+  background-repeat:no-repeat;
+  padding:0px;
+  margin: 0px 0px 0px 0px ;
+}
