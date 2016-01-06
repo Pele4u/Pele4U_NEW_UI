@@ -14,7 +14,7 @@
   background-color: #fff;
   text-align: center;
   font-weight: 300;
-  background-color: #fff;
+  background-color: #BDECEC;
 
 }
 
@@ -22,7 +22,7 @@
   text-align: center;
   margin: 0px 0;
   position: relative;
-  background-color:#fff;
+  /*background-color:#fff;*/
 }
 
 .tabbed-slidebox .tsb-ic-wrp {
@@ -35,16 +35,22 @@
 
 .tabbed-slidebox .tsb-icons a {
   display: inline-block;
-  width: 54px;
-  font-size: 2.5em;
-  color: #ddd;
+  /*width: 54px;*/
+  font-size: 24px;
+  color: #FFFFFF;
   -webkit-transform:translate3d(0,8px,0);
+  background-image:url('../img/DocApprove/menu_tab_grey.png');
+  background-size: cover;
+  width: 150px !important;
 }
 
 .tabbed-slidebox .tsb-icons a.active {
-  color: #fafafa;
-  font-size: 3.5em;
+  color: #4996C9;
+  font-size: 24px;
   -webkit-transform:translate3d(0,0,0);
+  background-image:url('../img/DocApprove/menu_tab_white.png');
+  background-size: cover;
+  width: 150px !important;
 }
 
 .tabbed-slidebox .tabbed-slidebox {
@@ -83,9 +89,9 @@
   line-height: 1.5em;
   text-decoration: none;
   margin: 0 15px;
-  border-bottom: 3px solid transparent;
+  /*border-bottom: 3px solid transparent;*/
 }
 .tabbed-slidebox .tsb-icons .scroll a.active {
   font-size: 1.8em;
-  border-bottom: 3px solid #ccc;
+  /*border-bottom: 3px solid #ccc;*/
 }
