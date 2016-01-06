@@ -22,24 +22,13 @@
           </ion-scroll>
         </div>
       </div>
-      <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)">
+      <ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)" >
         <!-- -->
         <!-------------------------------------------------------------------------------->
         <!----------------------------- Approve List Slide ------------------------------->
         <!-------------------------------------------------------------------------------->
         <ion-slide>
           <ion-scroll style="height:80%" delegate-handle="slide1Scroll" >
-            <div class="item item-divider "><a class="float-right">פרטי עובד</a></div>
-
-            <label class="item item-thumbnail-left">
-              <img src="img/employees/worker.png">
-              <h2 class="float-right">שם : {{CREATOR}}</h2><br>
-              <h2 class="float-right">ת.ז. : {{EMP_NUMBER}}</h2><br>
-              <h2 class="float-right">מספר טופס : {{DOC_INIT_ID}}</h2><br>
-              <h2 class="float-right">ת. יצירה : {{SENT_DATE}}</h2><br>
-              <h2 class="float-right">מחלקה : {{DEPARTMENT}}</h2><br>
-              <h2 class="float-right">חטיבה : {{SECTOR}}</h2><br>
-            </label>
           <div ng-repeat="detail in docDetails.ACTION_HISTORY" type="item-text-wrap" dir="RTL">
             <!--<div class="item item-divider "> -->
             <a class="item item-divider item-icon-right">
@@ -68,18 +57,17 @@
         <!----------------------------- Doc Details Slide ------------------------------->
         <!------------------------------------------------------------------------------->
         <ion-slide>
-          <ion-scroll style="height:90%" delegate-handle="slide1Scroll" >
+          <ion-scroll style="height:80%" delegate-handle="slide1Scroll" >
     <!-- Refresh to get the new posts -->
-            <div class="item item-divider "><a class="float-right">פרטי עובד</a></div>
 
             <label class="item item-thumbnail-left">
               <img src="img/employees/worker.png">
-              <h2 class="float-right">שם : {{CREATOR}}</h2><br>
-              <h2 class="float-right">ת.ז. : {{EMP_NUMBER}}</h2><br>
-              <h2 class="float-right">מספר טופס : {{DOC_INIT_ID}}</h2><br>
-              <h2 class="float-right">ת. יצירה : {{SENT_DATE}}</h2><br>
-              <h2 class="float-right">מחלקה : {{DEPARTMENT}}</h2><br>
-              <h2 class="float-right">חטיבה : {{SECTOR}}</h2><br>
+              <h2 class="text-right">שם : {{CREATOR}}</h2>
+              <h2 class="text-right">ת.ז. : {{EMP_NUMBER}}</h2>
+              <h2 class="text-right">מספר טופס : {{DOC_INIT_ID}}</h2>
+              <h2 class="text-right">ת. יצירה : {{SENT_DATE}}</h2>
+              <h2 class="text-right">מחלקה : {{DEPARTMENT}}</h2>
+              <h2 class="text-right">חטיבה : {{SECTOR}}</h2>
             </label>
       <ul class="list">
         <div ng-repeat="detail in docDetails.DOC_LINES" type="item-text-wrap" dir="RTL">
@@ -96,13 +84,13 @@
               <div class="col text-right">סיבה העדרות : </div>
             </div>
             <div class="row">
-              <textarea class="col text-right" readonly="true" rows="4">{{detail.ATTRIBUTE4}}</textarea>
+              <textarea class="col text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE4)">{{detail.ATTRIBUTE4}}</textarea>
             </div>
             <div class="row">
               <div class="col text-right">הערה : </div>
             </div>
             <div class="row">
-              <textarea class="col text-right" readonly="true" rows="4">{{detail.ATTRIBUTE5}}</textarea>
+              <textarea class="col text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE5)">{{detail.ATTRIBUTE5}}</textarea>
             </div>
           </label>
         </div>

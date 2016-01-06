@@ -29,17 +29,7 @@
         <!-------------------------------------------------------------------------------->
         <ion-slide>
           <ion-scroll style="height:80%" delegate-handle="slide1Scroll" >
-            <div class="item item-divider "><a class="float-right">פרטי עובד</a></div>
 
-            <label class="item item-thumbnail-left">
-              <img src="img/employees/worker.png">
-              <h2 class="float-right">שם : {{CREATOR}}</h2><br>
-              <h2 class="float-right">ת.ז. : {{EMP_NUMBER}}</h2><br>
-              <h2 class="float-right">מספר טופס : {{DOC_INIT_ID}}</h2><br>
-              <h2 class="float-right">ת. יצירה : {{SENT_DATE}}</h2><br>
-              <h2 class="float-right">מחלקה : {{DEPARTMENT}}</h2><br>
-              <h2 class="float-right">חטיבה : {{SECTOR}}</h2><br>
-            </label>
           <div ng-repeat="detail in docDetails.ACTION_HISTORY" type="item-text-wrap" dir="RTL">
             <!--<div class="item item-divider "> -->
             <a class="item item-divider item-icon-right">
@@ -68,57 +58,63 @@
         <!----------------------------- Doc Details Slide ------------------------------->
         <!------------------------------------------------------------------------------->
         <ion-slide>
-          <ion-scroll style="height:90%" delegate-handle="slide1Scroll" >
+          <ion-scroll style="height:80%" delegate-handle="slide1Scroll" >
     <!-- Refresh to get the new posts -->
-            <div class="item item-divider "><a class="float-right">פרטי עובד</a></div>
 
             <label class="item item-thumbnail-left">
               <img src="img/employees/worker.png">
-              <h2 class="float-right">שם : {{CREATOR}}</h2><br>
-              <h2 class="float-right">ת.ז. : {{EMP_NUMBER}}</h2><br>
-              <h2 class="float-right">מספר טופס : {{DOC_INIT_ID}}</h2><br>
-              <h2 class="float-right">ת. יצירה : {{SENT_DATE}}</h2><br>
-              <h2 class="float-right">מחלקה : {{DEPARTMENT}}</h2><br>
-              <h2 class="float-right">חטיבה : {{SECTOR}}</h2><br>
+              <h2 class="text-right">שם : {{CREATOR}}</h2>
+              <h2 class="text-right">ת.ז. : {{EMP_NUMBER}}</h2>
+              <h2 class="text-right">מספר טופס : {{DOC_INIT_ID}}</h2>
+              <h2 class="text-right">ת. יצירה : {{SENT_DATE}}</h2>
+              <h2 class="text-right">מחלקה : {{DEPARTMENT}}</h2>
+              <h2 class="text-right">חטיבה : {{SECTOR}}</h2>
             </label>
       <ul class="list">
         <!---------------------------- 242 --------------------------------->
         <div ng-repeat="detail in docDetails.DOC_LINES" type="item-text-wrap" dir="RTL">
-            <a class="item item-divider item-icon-right">
-              <i class="icon ion-android-calendar"></i>
-              <p class="float-right">{{detail.EFFECTIVE_DATE}}</p>
-              <span>יום: {{detail.ATTRIBUTE1}}</span>
+
+          <a class="item item-divider item-icon-right" ng-click="toggleGroup(detail.EFFECTIVE_DATE)">
+            <i class="icon ion-android-calendar"></i>
+            <p class="float-right">{{detail.EFFECTIVE_DATE}}</p>
+            <span>יום: {{detail.ATTRIBUTE1}}</span>
               <span class="tab">סה"כ
                 {{detail.ATTRIBUTE4}}
               </span>
-            </a>
-
-          <label class="item">
+            <i ng-class="isGroupShown(detail.EFFECTIVE_DATE) ? 'icon-expand' : 'icon-collapse'"></i>
+          </a>
+          <label class="item" ng-show="isGroupShown(detail.EFFECTIVE_DATE)">
             <div class="row">
-              <div class="col text-right">שעת התחלה</div>
-              <div class="col text-right">{{detail.ATTRIBUTE2}}</div>
+              <div class="col col-30 text-right">שעת התחלה</div>
+              <div class="col col-70 text-right">{{detail.ATTRIBUTE2}}</div>
             </div>
             <div class="row">
-              <div class="col text-right">שעת סיום</div>
-              <div class="col text-right">{{detail.ATTRIBUTE3}}</div>
+              <div class="col col-30 text-right">שעת סיום</div>
+              <div class="col col-70 text-right">{{detail.ATTRIBUTE3}}</div>
             </div>
             <div class="row">
-              <div class="col text-right">סוג דיווח</div>
-            </div>
-            <div>
-              <textarea class="col text-right" readonly="true" rows="4">{{detail.ATTRIBUTE5}}</textarea>
+              <div class="col col-30 text-right">סוג דיווח</div>
+              <div class="col col-70 text-right">{{detail.ATTRIBUTE5}}</div>
             </div>
             <div class="row">
-              <div class="col text-right">מטרת עבודה : </div>
+              <div class="col col-30 text-right">מטרת עבודה : </div>
+              <div class="col col-70 text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE6)" >
+                <p style="color:blue">{{detail.ATTRIBUTE6}}</p>
+              </div>
             </div>
+            <!--
             <div class="row">
-              <textarea class="col text-right" readonly="true" rows="4">{{detail.ATTRIBUTE6}}</textarea>
+              <div class="col col-30 text-right">הערה : </div>
+              <div class="col col-70 text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE7)">
+                <p style="color:blue">{{detail.ATTRIBUTE7}}</p>
+              </div>
             </div>
+            -->
             <div class="row">
-              <div class="col text-right">הערה : </div>
-            </div>
-            <div class="row">
-              <textarea class="col text-right" readonly="true" rows="4">{{detail.ATTRIBUTE7}}</textarea>
+              <div class="col col-30 text-right">הערה : </div>
+              <div class="col col-70 text-right" readonly="true" rows="2" on-touch="show()">
+                <p style="color:blue">{{detail.ATTRIBUTE7}}</p>
+              </div>
             </div>
           </label>
         </div>
@@ -131,21 +127,14 @@
   <!-- Footer Actions -->
   <ion-footer-bar align-title="right">
 
-    <div class="row " ngmodel="buttons.approve" ng-show="approve">
+    <div class="row">
       <div class="col">
-        <button class="button button-block button-large button-positive  icon-right ion-checkmark-circled" ng-click="docApprove()">אישור</button>
+        <button class="button button-block button-large button-positive  icon-right ion-checkmark-circled" ng-click="showBtnActions()">פעולות</button>
       </div>
 
       <div class="col">
-        <button class="button button-block button-large button-assertive icon-right ion-close-circled" ng-click="docReject()">דחיה</button>
+        <button class="button button-block button-large button-assertive icon-right ion-close-circled" ng-click="NotePopup()">הערה</button>
       </div>
-    </div>
-    <div class="row" ngmodel="buttons.approve" ng-show="!approve">
-      <div class="col col-25"></div>
-      <div class="col">
-        <button class="button button-block button-large button-positive  icon-right ion-checkmark-circled" ng-click="docOK()">אישור</button>
-      </div>
-      <div class="col col-25"></div>
     </div>
 
   </ion-footer-bar>

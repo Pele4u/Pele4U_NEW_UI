@@ -14,6 +14,9 @@ angular.module('pele.config', [])
     translateFlag:"N",
     flashTime: 2500 ,
     getUserMenuError: "שגיאת קבלת התפריטים למשתמש, קוד שגיאה - ",
+    APPROVE : {text: '<i id="APPROVE" class="icon ion-checkmark-circled text-center"></i> אישור'},
+    OK      : {text: '<i id="OK"      class="icon ion-checkmark-circled text-center"></i> אישור'},
+    REJECT  : '<i id="REJECT"  class="icon ion-close-circled text-center"></i>דחיה',
     enviroment:"QA",
     enviromentLinks:[
                       { Environment:"CURRENT",

@@ -252,7 +252,6 @@ angular.module('pele.factories', [])
         subTitle: subTitleTxt,
         scope: $rootScope,
         buttons: [
-          { text: '<a class="pele-popup-positive-text-collot">בטול</a>' },
           {
             text: '<a class="pele-popup-positive-text-collot">אישור</a>',
             type: 'button-positive',
@@ -266,6 +265,9 @@ angular.module('pele.factories', [])
                 return $rootScope.data.pincode;
               }
             }
+          },
+          { text: '<a class="pele-popup-positive-text-collot">ביטול</a>',
+            type: 'button-assertive'
           },
         ]
       });
@@ -287,8 +289,37 @@ angular.module('pele.factories', [])
     },
     hideLoading:function(){
       $ionicLoading.hide();
-    }
-    //========
+    },
+    //===========================================================================================//
+    //== When         Who       Description
+    //== -----------  --------  ----------------------------------------------------------------
+    //== 06/01/2015   R.W.      function calculate list Action Buttons Display in Approve page
+    //===========================================================================================//
+    getButtons : function(buttonsArr){
+
+      var buttons = [];
+      var arrLength = buttonsArr.length;
+      for(var i=0;i<arrLength;i++){
+
+        if("OK" === buttonsArr[i].LOOKUP_CODE){
+          buttons.push(appSettings.OK);
+        }
+        if("APPROVE" === buttonsArr[i].LOOKUP_CODE){
+          buttons.push(appSettings.APPROVE);
+        }
+      } // for
+      return buttons;
+    },
+    getDestructiveText : function(buttonsArr){
+      var buttons = [];
+      var arrLength = buttonsArr.length;
+      for(var i=0;i<arrLength;i++){
+        if("REJECT" === buttonsArr[i].LOOKUP_CODE){
+          buttons.push(appSettings.REJECT);
+        };
+      }; // for
+      return buttons
+    },
   };
 })
 

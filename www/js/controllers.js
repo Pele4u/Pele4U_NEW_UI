@@ -521,6 +521,7 @@ angular.module('pele.controllers', [])
                         ,'$ionicNavBarDelegate'
                         ,'$cordovaNetwork'
                         ,'$ionicPopup'
+                        ,'appSettings'
     , function(  $rootScope
     , $scope
     , $stateParams
@@ -533,13 +534,60 @@ angular.module('pele.controllers', [])
     , $ionicActionSheet
     , $ionicModal
     , PelApi
-    ,$ionicNavBarDelegate
-    ,$cordovaNetwork
-    ,$ionicPopup
+    , $ionicNavBarDelegate
+    , $cordovaNetwork
+    , $ionicPopup
+    , appSettings
   ) {
+    //---------------------------------------------------------------------------
+    //--                         openExistText
+    //---------------------------------------------------------------------------
+    $scope.openExistText = function(text){
+      $scope.data = {};
+      $scope.data.docText1 = text;
+      if(text!== null){
+        var myPopup = $ionicPopup.show({
+          template: '<div class="list pele-note-background" dir="RTL"><label class="item item-input"><textarea rows="8" readonly="true" ng-model="data.docText1" type="text" >{{data.docText1}}</textarea></label></div>',
+          title: '<a class="float-right"></a>',
+          subTitle: '',
+          scope: $scope,
+          buttons: [
+            {
+              text: '<a class="pele-popup-positive-text-collot">סגור</a>',
+              type: 'button-positive',
+              onTap: function (e) {
+              }
+            },
+          ]
+        });
+        myPopup.then(function(res) {
 
+        });
+      }
+    } // openExistText
+    //---------------------------------------------------------------------------
+    //--                         isGroupShown
+    //---------------------------------------------------------------------------
+    $scope.isGroupShown = function(group){
+      return $scope.shownGroup === group;
+    } // isGroupShown
 
+    //---------------------------------------------------------------------------
+    //--                         isGroupShown
+    //---------------------------------------------------------------------------
+    $scope.toggleGroup = function(group) {
+        if ($scope.isGroupShown(group)) {
+          $scope.shownGroup = null;
+        } else {
+          $scope.shownGroup = group;
+        }
+    };
+
+    //---------------------------------------------------------------------------
+    //--                         doRefresh
+    //---------------------------------------------------------------------------
     $scope.doRefresh = function() {
+      $scope.data = {};
       $scope.feed = [];
       $scope.tabs = config_app.tabs;
 
@@ -563,6 +611,12 @@ angular.module('pele.controllers', [])
       }
       else {
         console.log(config_app.docDetails);
+        if(config_app.docDetails.DOC_LINES.length > 1){
+          $scope.shownGroup = null;
+        }else{
+          $scope.shownGroup = config_app.docDetails.DOC_LINES[0].EFFECTIVE_DATE;
+        }
+        $scope.buttonsArr      = config_app.docDetails.BUTTONS;
         $scope.docDetails      = config_app.docDetails;
         $scope.sourceTitle     = config_app.docDetails.DOC_NAME;
         $scope.CREATOR         = config_app.docDetails.CREATOR;
@@ -779,7 +833,7 @@ angular.module('pele.controllers', [])
     //-----------------------------------
     //--         OK
     //-----------------------------------
-    $scope.docOK = function(action){
+    $scope.docOK = function(){
 
       //PelApi.showLoading();
 
@@ -841,71 +895,168 @@ angular.module('pele.controllers', [])
         PelApi.showPopup(config_app.wifiTitle , config_app.wifiSubTitle);
         //$state.go("app.p1_appsLists");
       }else {
-        $scope.data = {};
-        var myPopup = $ionicPopup.show({
-          template: '<div class="list pele-note-background" dir="RTL"><label class="item item-input"><textarea rows="8" ng-model="data.note" type="text"></textarea></label></div>',
-          title: '<a class="float-right">הערות</a>',
-          subTitle: '',
-          scope: $scope,
-          buttons: [
-            {
+        if($scope.data.note !== undefined){
+          $scope.submitNotif(actionType , $scope.data.note)
+        }else {
+          var myPopup = $ionicPopup.show({
+            template: '<div class="list pele-note-background" dir="RTL"><label class="item item-input"><textarea rows="8" ng-model="data.note" type="text">{{data.note}}</textarea></label></div>',
+            title: '<a class="float-right">הערות</a>',
+            subTitle: '',
+            scope: $scope,
+            buttons: [
+              {
 
-              text: '<a class="pele-popup-positive-text-collot">שמירה</a>',
-              type: 'button-positive',
-              onTap: function (e) {
-                if (!$scope.data.note) {
-                  //don't allow the user to close unless he enters wifi password
-                  e.preventDefault();
-                } else {
+                text: '<a class="pele-popup-positive-text-collot">שמירה</a>',
+                type: 'button-positive',
+                onTap: function (e) {
+                  if (!$scope.data.note) {
+                    //don't allow the user to close unless he enters wifi password
+                    e.preventDefault();
+                  } else {
 
-                  return $scope.data.note;
+                    return $scope.data.note;
+                  }
                 }
-              }
-            },
-            {text: 'ביטול',
-             type: 'button-assertive'
-            },
-          ]
-        });
-        myPopup.then(function (res) {
-          note = res
-          if(note!==undefined) {
-            PelApi.showLoading();
-            var links3 = PelApi.getDocApproveServiceUrl("SubmitNotif");
-            var retSubmitNotification = PelApi.SubmitNotification(links3, appId, notificationId, note, actionType);
-            retSubmitNotification.then(
-              //---- SUCCESS -----//
-              function () {
-                retSubmitNotification.success(function (data, status, headers, config) {
-                  $ionicLoading.hide();
-                  $scope.$broadcast('scroll.refreshComplete');
-                  $ionicNavBarDelegate.back();
-                }),
-                  retSubmitNotification.error(function (data, status, headers, config) {
-                    $ionicLoading.hide();
-                    $scope.$broadcast('scroll.refreshComplete');
-                    $ionicNavBarDelegate.back();
-                  });
               },
-              //---- ERROR -----//
-              function () {
-                retSubmitNotification.success(function (data, status, headers, config) {
-                  $ionicLoading.hide();
-                  $scope.$broadcast('scroll.refreshComplete');
-                  $ionicNavBarDelegate.back();
-                }),
-                  retSubmitNotification.error(function (data, status, headers, config) {
-                    $ionicLoading.hide();
-                    $scope.$broadcast('scroll.refreshComplete');
-                    $ionicNavBarDelegate.back();
-
-                  })
-              }
-            );
-          }
-        });
+              {
+                text: 'ביטול',
+                type: 'button-assertive'
+              },
+            ]
+          });
+          myPopup.then(function (res) {
+            note = res
+            if (note !== undefined) {
+              $scope.submitNotif(actionType, note);
+            }
+          });
+        }
       }
     }; // docReject
+    //--------------------------------------------------------------
+    //
+    //--------------------------------------------------------------
+    $scope.submitNotif = function(action , note){
+      var appId = $stateParams.AppId;
+      var notificationId = $scope.NOTIFICATION_ID;
+      var actionType = action;
+
+      PelApi.showLoading();
+      var links3 = PelApi.getDocApproveServiceUrl("SubmitNotif");
+      var retSubmitNotification = PelApi.SubmitNotification(links3, appId, notificationId, note, actionType);
+      retSubmitNotification.then(
+        //---- SUCCESS -----//
+        function () {
+          retSubmitNotification.success(function (data, status, headers, config) {
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
+            $ionicNavBarDelegate.back();
+          }),
+            retSubmitNotification.error(function (data, status, headers, config) {
+              $ionicLoading.hide();
+              $scope.$broadcast('scroll.refreshComplete');
+              $ionicNavBarDelegate.back();
+            });
+        },
+        //---- ERROR -----//
+        function () {
+          retSubmitNotification.success(function (data, status, headers, config) {
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
+            $ionicNavBarDelegate.back();
+          }),
+            retSubmitNotification.error(function (data, status, headers, config) {
+              $ionicLoading.hide();
+              $scope.$broadcast('scroll.refreshComplete');
+              $ionicNavBarDelegate.back();
+
+            })
+        }
+      );
+    } ;
+    //--------------------------------------------------------------
+    //-- When         Who       Description
+    //-- -----------  --------  ------------------------------------
+    //-- 06/01/2016   R.W.
+    //--------------------------------------------------------------
+    $scope.NotePopup = function(){
+      var myPopup = $ionicPopup.show({
+        template: '<div class="list pele-note-background" dir="RTL"><label class="item item-input"><textarea rows="8" ng-model="data.note" type="text">{{data.note}}</textarea></label></div>',
+        title: '<a class="float-right">הערות</a>',
+        subTitle: '',
+        scope: $scope,
+        buttons: [
+          {
+
+            text: '<a class="pele-popup-positive-text-collot">שמירה</a>',
+            type: 'button-positive',
+            onTap: function (e) {
+              if (!$scope.data.note) {
+                //don't allow the user to close unless he enters wifi password
+                e.preventDefault();
+              } else {
+
+                return $scope.data.note;
+              }
+            }
+          },
+          {text: 'ביטול',
+            type: 'button-assertive',
+            onTap: function (e) {
+                return $scope.data.note;
+            }
+          },
+        ]
+      });
+      myPopup.then(function (res) {
+        $scope.data.note = res;
+      });
+    }; // NotePopup
+    //--------------------------------------------------------------
+    //--           Button Action
+    //--------------------------------------------------------------
+    $scope.showBtnActions = function() {
+      var buttons         = PelApi.getButtons($scope.buttonsArr);
+      var destructiveText = PelApi.getDestructiveText($scope.buttonsArr);
+      // Show the action sheet
+      var hideSheet = $ionicActionSheet.show({
+        buttons        : buttons,
+        destructiveText: destructiveText,
+        titleText      : 'רשימת פעולות עבור טופס',
+        cancelText     : 'ביטול',
+        //-----------------------------------------------
+        //--               CANCEL
+        //-----------------------------------------------
+        cancel: function () {
+          // add cancel code..
+          return true;
+        },
+        //-----------------------------------------------
+        //--               BUTTONS
+        //-----------------------------------------------
+        buttonClicked: function (index,button) {
+          var note = $scope.data.note;
+          // add buttons code..
+          if(button === appSettings.OK){
+            $scope.submitNotif("OK", note);
+          }
+          if(button === appSettings.APPROVE){
+
+            $scope.submitNotif("APPROVE", note);
+          }
+          return true;
+        },
+        //-----------------------------------------------
+        //--           DESTRUCTIVE BUTTON
+        //-----------------------------------------------
+        destructiveButtonClicked: function (){
+          // add destructive button code..
+          $scope.docReject();
+          return true;
+        },
+      });
+    }
+
     $scope.doRefresh();
 
   }])
