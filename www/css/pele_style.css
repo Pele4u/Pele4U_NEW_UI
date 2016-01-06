@@ -330,3 +330,6 @@ div.item-content{padding:5px 30px 5px 30px !important; border: none !important; 
 input[type=tel] {
   -webkit-text-security: disc;
 }
+p.under {
+  text-decoration: underline;
+}

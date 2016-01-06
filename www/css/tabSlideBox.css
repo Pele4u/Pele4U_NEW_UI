@@ -14,7 +14,7 @@
   background-color: #fff;
   text-align: center;
   font-weight: 300;
-  background-color: #BDECEC;
+  /*background-color: #BDECEC;*/
 
 }
 
@@ -50,7 +50,7 @@
   -webkit-transform:translate3d(0,0,0);
   background-image:url('../img/DocApprove/menu_tab_white.png');
   background-size: cover;
-  width: 150px !important;
+  width: 180px !important;
 }
 
 .tabbed-slidebox .tabbed-slidebox {
@@ -92,6 +92,6 @@
   /*border-bottom: 3px solid transparent;*/
 }
 .tabbed-slidebox .tsb-icons .scroll a.active {
-  font-size: 1.8em;
+  font-size: 1.6em;
   /*border-bottom: 3px solid #ccc;*/
 }
