@@ -247,7 +247,7 @@ angular.module('pele.factories', [])
 
       // An elaborate, custom popup
       var myPopup = $ionicPopup.show({
-        template: '<input type="tel" ng-model="data.pincode">',
+        template: '<input type="tel" ng-model="data.pincode" maxlength="6">',
         title: 'הזינו קוד מחמיר',
         subTitle: subTitleTxt,
         scope: $rootScope,
