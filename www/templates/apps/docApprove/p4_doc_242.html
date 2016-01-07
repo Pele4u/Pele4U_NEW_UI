@@ -103,7 +103,7 @@
             <div class="row">
               <div class="col col-30 text-right">הערה : </div>
               <div class="col col-70 text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE12)">
-                <p style="color:blue">{{detail.ATTRIBUTE12}}</p>
+                <p class="under" style="color:blue">{{detail.ATTRIBUTE12}}</p>
               </div>
             </div>
           </label>
@@ -118,11 +118,11 @@
 
     <div class="row">
       <div class="col">
-        <button class="button button-block button-large button-positive  icon-right ion-checkmark-circled" ng-click="showBtnActions()">פעולות</button>
+        <button class="button button-block button-large button-positive  icon-right ion-paper-airplane" ng-click="showBtnActions()">פעולות</button>
       </div>
 
       <div class="col">
-        <button class="button button-block button-large button-assertive icon-right ion-close-circled" ng-click="NotePopup()">הערה</button>
+        <button class="button button-block button-large button-assertive icon-right ion-document-text" ng-click="NotePopup()">הערה</button>
       </div>
     </div>
 

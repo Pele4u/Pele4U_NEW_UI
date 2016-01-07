@@ -17,7 +17,7 @@ angular.module('pele.config', [])
     APPROVE : {text: '<i id="APPROVE" class="icon ion-checkmark-circled text-center"></i> אישור'},
     OK      : {text: '<i id="OK"      class="icon ion-checkmark-circled text-center"></i> אישור'},
     REJECT  : '<i id="REJECT"  class="icon ion-close-circled text-center"></i>דחיה',
-    enviroment:"QA",
+    enviroment:"QC",
     enviromentLinks:[
                       { Environment:"CURRENT",
                         ServiceList:[{"Service": "GetUserMenu",
