@@ -190,7 +190,7 @@ div.app-button{
   font-weight: bold;
   text-align: center;
   vertical-align: middle;
-  padding: 20px;
+  padding: 30px;
 }
 
 .row{padding: 0px !important; }
@@ -205,7 +205,7 @@ div.app-button{
   background-size: 100% !important;
   background: url("../img/DocApprove/pele_header_1.png") center;
   background-repeat:no-repeat;
-  padding: 0px 5px 8px 5px;
+  padding: 10px;
   text-align: center;
 }
 .pele-img-place{
@@ -255,14 +255,14 @@ a.search-icon{background-image: url("../img/DocApprove/search_button.png");
     background-repeat:no-repeat;
     height:32px ;
     width: 32px;
-    margin-top: -2px;
+    padding: 0px;
 }
 
 a.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
     background-size: 100% 24px !important;
     background-repeat:no-repeat;
     height:24px ;
-    width: 24px;
+    width: 14px;
     padding: 0px;
     float: left;
     display: inline-block;
@@ -272,7 +272,7 @@ a.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
     background-size: 100% 24px !important;
     background-repeat:no-repeat;
     height:24px ;
-    width: 24px;
+    width: 14px;
     padding: 0px;
     float: left;
     display: inline-block;
@@ -282,7 +282,7 @@ i.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
   background-size: 100% 24px !important;
   background-repeat:no-repeat;
   height:24px ;
-  width: 24px;
+  width: 14px;
   padding: 0px;
   float: left;
   display: inline-block;
@@ -292,7 +292,7 @@ i.icon-expand{background-image: url("../img/DocApprove/expand_arrow.png");
   background-size: 100% 24px !important;
   background-repeat:no-repeat;
   height:24px ;
-  width: 24px;
+  width: 14px;
   padding: 0px;
   float: left;
   display: inline-block;
@@ -317,6 +317,7 @@ div.item-content{padding:5px 30px 5px 30px !important; border: none !important; 
 .item-doc h2{    padding: 15px 40px 0px 40px ;}
 .item-doc h3{    padding: 0px 40px 0px 40px ;}
 
+/* rem by R.W.
 .bar.app-top-bar {
   border:none;
   background: transparent;
@@ -326,6 +327,20 @@ div.item-content{padding:5px 30px 5px 30px !important; border: none !important; 
   padding:0px;
   margin: 0px 0px 0px 0px ;
 }
+*/
+
+dic.title {
+  border:none;
+  background: transparent;
+  background-size: 100% !important;
+  background: url("../img/DocApprove/logo.png") center;
+  background-repeat:no-repeat;
+  padding:0px;
+  margin: 0px 0px 0px 0px ;
+  max-width: 100%;
+  max-height: 100%;
+}
+
 
 input[type=tel] {
   -webkit-text-security: disc;

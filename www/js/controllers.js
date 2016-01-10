@@ -347,15 +347,22 @@ angular.module('pele.controllers', [])
 
               if ("Valid" === pinStatus) {
 
-                $scope.chats = data.Response.OutParams.ROW;
-                console.log($scope.chats);
-                $scope.title = "";
-                var rowLength = $scope.chats.length;
-                if(rowLength > 0){
-                  $scope.title = $scope.chats[0].DOC_TYPE;
+                if(data.Response.OutParams.ROW[0].DOC_NAME === null)
+                {
+                  $ionicLoading.hide();
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $state.go("app.p1_appsLists");
+                }else{
+                  $scope.chats = data.Response.OutParams.ROW;
+                  console.log($scope.chats);
+                  $scope.title = "";
+                  var rowLength = $scope.chats.length;
+                  if(rowLength > 0){
+                    $scope.title = $scope.chats[0].DOC_TYPE;
+                  }
+                  $ionicLoading.hide();
+                  $scope.$broadcast('scroll.refreshComplete');
                 }
-                $ionicLoading.hide();
-                $scope.$broadcast('scroll.refreshComplete');
               } else if ("PDA" === pinStatus) {
                 $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
@@ -1017,11 +1024,9 @@ angular.module('pele.controllers', [])
     //--------------------------------------------------------------
     $scope.showBtnActions = function() {
       var buttons         = PelApi.getButtons($scope.buttonsArr);
-      var destructiveText = PelApi.getDestructiveText($scope.buttonsArr);
       // Show the action sheet
       var hideSheet = $ionicActionSheet.show({
         buttons        : buttons,
-        destructiveText: destructiveText,
         titleText      : 'רשימת פעולות עבור טופס',
         cancelText     : 'ביטול',
         //-----------------------------------------------

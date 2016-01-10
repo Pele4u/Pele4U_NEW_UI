@@ -307,18 +307,11 @@ angular.module('pele.factories', [])
         if("APPROVE" === buttonsArr[i].LOOKUP_CODE){
           buttons.push(appSettings.APPROVE);
         }
-      } // for
-      return buttons;
-    },
-    getDestructiveText : function(buttonsArr){
-      var buttons = [];
-      var arrLength = buttonsArr.length;
-      for(var i=0;i<arrLength;i++){
         if("REJECT" === buttonsArr[i].LOOKUP_CODE){
           buttons.push(appSettings.REJECT);
-        };
-      }; // for
-      return buttons
+        }
+      } // for
+      return buttons;
     },
   };
 })
