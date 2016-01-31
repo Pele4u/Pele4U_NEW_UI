@@ -185,7 +185,7 @@ div.app-button{
 
 
 .description{
-  font-size: 24px !important;
+  font-size: 20px !important;
   color: black !important;
   font-weight: bold;
   text-align: center;
@@ -250,12 +250,22 @@ input.search-area{background-image: url("../img/DocApprove/search_box.png");
     padding: 0px;
     /* direction:rtl ;*/
 }
+/*
 a.search-icon{background-image: url("../img/DocApprove/search_button.png");
     background-size: 100% 32px !important;
     background-repeat:no-repeat;
     height:32px ;
     width: 32px;
     padding: 0px;
+}
+*/
+a.search-icon {
+  background-image: url("../img/DocApprove/search_button.png");
+  background-size: 100% 32px !important;
+  background-repeat: no-repeat;
+  height: 34px;
+  width: 32px;
+  padding: 0px;
 }
 
 a.icon-collapse{background-image: url("../img/DocApprove/collapse_arrow.png");
@@ -313,9 +323,9 @@ ion-item.item-stable{text-align: right;}
 ion-item.item-stable :active{background-color: #FFFFFF !important;}
 ion-item.item-doc-list{margin-top:2px; margin-bottom: 2px; background-color: #CECECE; min-height: 64px; vertical-align: middle; border: none; }
 .item-doc-list img{height: 50px; float: left;  width:auto; border: none;}
-div.item-content{padding:5px 30px 5px 30px !important; border: none !important; background-color: #CECECE !important;  vertical-align: middle !important;}
-.item-doc h2{    padding: 15px 40px 0px 40px ;}
-.item-doc h3{    padding: 0px 40px 0px 40px ;}
+div.item-content{padding:5px 10px 5px 10px !important; border: none !important; background-color: #CECECE !important;  vertical-align: middle !important;}
+.item-doc h2{    padding: 15px 10px 0px 10px ;}
+.item-doc h3{    padding: 0px 10px 0px 10px ;}
 
 /* rem by R.W.
 .bar.app-top-bar {
@@ -348,3 +358,7 @@ input[type=tel] {
 p.under {
   text-decoration: underline;
 }
+
+.envPD{}
+.envQA{background-color: #886aea;}
+.envDV{background-color: #ffc900;}

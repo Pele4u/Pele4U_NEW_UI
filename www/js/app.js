@@ -10,9 +10,11 @@ angular.module('pele', ['ionic'
                            ,'pele.controllers'
                            ,'pele.factories'
                            ,'pele.config'
+                           ,'pele.services'
+                           ,'fileLogger'
                           ])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform , $state , $ionicLoading , $fileLogger , PelApi  ) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -25,6 +27,24 @@ angular.module('pele', ['ionic'
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    //----------------------------------
+    //--    Create/Open Log File
+    //----------------------------------
+    $fileLogger.setStorageFilename(config_app.LOG_FILE_NAME);
+    //----------------------------------
+    //--   Delete Old Log File data
+    //----------------------------------
+    $fileLogger.deleteLogfile();
+    //----------------------------------
+    //--  Write open row to log file
+    //----------------------------------
+    PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE ,'=============== Start ==============');
+
+    //----------------------------------
+    //--    Go To Application List
+    //----------------------------------
+    $state.go("app.p1_appsLists");
+
   });
 })
 
@@ -102,7 +122,35 @@ angular.module('pele', ['ionic'
         }
       }
     })
+    //---- home ----//
+    .state('app.home', {
+      url: '/home',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/p1_appsLists.html',
+          controller: 'homeCtrl'
+        }
+      }
+    })
+    .state('app.settings', {
+        url: '/settings',
+        views:{
+          'menuContent': {
+            templateUrl: 'templates/settings/settingsList.html',
+            controller: 'SettingsListCtrl'
+          }
+        }
+    })
+    .state('app.settings.sendLog', {
+        url: '/sendLog',
+        views: {
+          'menuContent': {
+            templateUrl: 'templates/settings/sendLog.html',
+            controller: 'SendLogCtrl'
+          }
+        }
+  })
   ;
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/p1_appsLists');
+  $urlRouterProvider.otherwise('/app/home');
 });

@@ -53,11 +53,19 @@
           <!--<p class="message">ברוכים שבים</p>-->
         </ion-item>
         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.p1_appsLists">
-          <i class="icon ion-document"></i>
-          <h2 class="menu-text">בחירת אפליקציה</h2>
+          <i class="icon ion-document" ng-class="myClass"></i>
+          <h2 class="menu-text"  >בחירת אפליקציה</h2>
         </ion-item>
-      </ion-list>
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.settings">
+          <i class="icon ion-gear-a" ng-class="myClass"></i>
+          <h2 class="menu-text">הגדרות</h2>
+        </ion-item>
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.home" ng-click="logout()">
+          <i class="icon ion-log-out" ng-class="myClass"></i>
+          <h2 class="menu-text">יציאה מאפליקציה</h2>
+        </ion-item>
 
+      </ion-list>
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>

@@ -98,11 +98,13 @@
             </div>
             <div class="row">
               <div class="col col-30 text-right">סיבת אי דיווח : </div>
-              <div class="col col-70 text-right">{{detail.ATTRIBUTE11}}</div>
+              <div class="col col-70 text-right" readonly="true" on-touch="openExistText(detail.ATTRIBUTE11)">
+                <p class="under" style="color:blue">{{detail.ATTRIBUTE11}}</p>
+              </div>
             </div>
             <div class="row">
               <div class="col col-30 text-right">הערה : </div>
-              <div class="col col-70 text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE12)">
+              <div class="col col-70 text-right" readonly="true" on-touch="openExistText(detail.ATTRIBUTE12)">
                 <p class="under" style="color:blue">{{detail.ATTRIBUTE12}}</p>
               </div>
             </div>

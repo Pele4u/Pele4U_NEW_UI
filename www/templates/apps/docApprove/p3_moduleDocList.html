@@ -62,13 +62,13 @@
         <ion-item class="item-accordion item-remove-animate item-icon-right item-doc-list" ng-repeat="item in chat.DOCUMENTS.DOCUMENTS_ROW | filter:searchText.text" ng-show="isGroupShown(chat.DOC_NAME)" ng-click="forwardToDoc(item.DOC_ID, item.DOC_INIT_ID)">
           <div class="item-doc">
             <!--<div class="item-doc">-->
-          <img ng-src="img/DocApprove/document_redirect.png">
-          <h2>{{item.MESSAGE}}</h2>
-          <h3>{{item.DOC_INIT_ID}}</h3>
-          <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
-          <ion-option-button class="button-assertive" ng-click="remove(item.DOC_INIT_ID)">
-            מחק
-          </ion-option-button>
+            <img ng-src="img/DocApprove/document_redirect.png">
+            <h2>{{item.MESSAGE}}</h2>
+            <h3>{{item.DOC_INIT_ID}}</h3>
+            <!--<i class="icon ion-chevron-right icon-accessory"></i>-->
+            <ion-option-button class="button-assertive" ng-click="remove(item.DOC_INIT_ID)">
+              מחק
+            </ion-option-button>
           </div>
         </ion-item>
       </div>

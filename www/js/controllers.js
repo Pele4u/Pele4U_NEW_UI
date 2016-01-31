@@ -1,6 +1,6 @@
 angular.module('pele.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $cordovaNetwork , $rootScope) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $cordovaNetwork , $rootScope , appSettings , $state ) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -30,15 +30,54 @@ angular.module('pele.controllers', [])
       })
 
     }, false);
+
+    if(appSettings.enviroment === "PROD"){
+      $scope.myClass = "envPD";
+    }
+    if(appSettings.enviroment === "QA"){
+      $scope.myClass = "envQA";
+    }
+    if(appSettings.enviroment === "DEV"){
+      $scope.myClass = "envDV";
+    }
+    //===============================================//
+    //== Forward to selected option from menu list ==//
+    //===============================================//
+    $scope.forwardTo = function(statePath){
+      $state.go(statePath);
+    }
+    //===============================================//
+    //==            Log Out                        ==//
+    //===============================================//
+    $scope.logout  = function() {
+      ionic.Platform.exitApp();
+    } ;
 })
+//=====================================================================//
+//==                        homeCtrl                                 ==//
+//=====================================================================//
+.controller('homeCtrl' , function($scope , $http , $state , $ionicLoading , PelApi , $cordovaNetwork , $rootScope , $ionicPopup){
+    PelApi.showLoading();
+}) // homeCtrl
+//=====================================================================//
+//==                      Setings SendLog                            ==//
+//=====================================================================//
+.controller('SendLogCtrl' , function($scope){
+}) // SendLogCtrl
+
+//=====================================================================//
+//==                      Setings SendLog                            ==//
+//=====================================================================//
+.controller('SettingsListCtrl' , function($scope){
+}) // SendLogCtrl
+
+
 //=====================================================================//
 //==                         PAGE_1                                  ==//
 //=====================================================================//
-.controller('P1_appsListCtrl', function($scope , $http , $state , $ionicLoading , PelApi , $cordovaNetwork , $rootScope , $ionicPopup) {
+.controller('P1_appsListCtrl', function($scope , $http , $state , $ionicLoading , PelApi , $cordovaNetwork , $rootScope , $ionicPopup , $ionicHistory) {
 
-  // var envRes = _.find(appSettings.enviromentLinks, {Environment: appSettings.enviroment});
-  // var servRes = _.find(envRes.ServiceList, {Service: "GetUserMenu"});
-
+  $ionicHistory.clearHistory();
   //=======================================================//
   //== When        Who         Description               ==//
   //== ----------  ----------  ------------------------- ==//
@@ -61,11 +100,6 @@ angular.module('pele.controllers', [])
     $scope.btn_class = {};
     $scope.btn_class.on_release = true;
 
-    /*
-    $ionicLoading.show({
-      template: config_app.loadingMsg
-    });
-    */
     PelApi.showLoading();
     var errorMsg = "";
 
@@ -91,7 +125,7 @@ angular.module('pele.controllers', [])
 
         reMenu.success(function (data, status, headers, config) {
 
-          console.log(data);
+          PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
 
           var pinCodeStatus = PelApi.GetPinCodeStatus(data, "getMenu");
           if("Valid" === pinCodeStatus){
@@ -100,6 +134,7 @@ angular.module('pele.controllers', [])
             config_app.user     = data.user;
             config_app.userName = data.userName;
             var strData = JSON.stringify(data);
+            strData = strData.replace(/\"\"/g,null);
             strData = strData.replace(/"\"/g,"");
             config_app.GetUserMenu = JSON.parse(strData);
             $scope.feeds_categories = config_app.GetUserMenu;
@@ -119,16 +154,23 @@ angular.module('pele.controllers', [])
             $scope.$broadcast('scroll.refreshComplete');
             errorMsg = config_app.PIN_STATUS.PAD;
             PelApi.showPopup(config_app.pinCodeSubTitlePWA , "");
+          }else if("OLD" === pinCodeStatus){
+            $ionicLoading.hide();
+            $scope.$broadcast('scroll.refreshComplete');
+            errorMsg = config_app.PIN_STATUS.PAD;
+            PelApi.showPopup(data.StatusDesc , "");
           }
         });
       }
       //--- ERROR ---//
       , function () {
         reMenu.success(function (data, status, headers, config) {
+          PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
           $ionicLoading.hide();
           $scope.$broadcast('scroll.refreshComplete');
           PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
         }).error(function (data, status, headers, config) {
+          PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
           $ionicLoading.hide();
           $scope.$broadcast('scroll.refreshComplete');
           PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
@@ -213,6 +255,7 @@ angular.module('pele.controllers', [])
 
     //===================== Refresh ===========================//
     $scope.doRefresh = function(){
+      //--
       $scope.btn_class = {};
       $scope.btn_class.on_release = true;
 
@@ -234,6 +277,9 @@ angular.module('pele.controllers', [])
           //--- SUCCESS ---//
           function () {
             retUserModuleTypes.success(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
+
               var pinCodeStatus = PelApi.GetPinCodeStatus(data, "getUserModuleTypes");
               if ("Valid" === pinCodeStatus) {
                 config_app.GetUserModuleTypes = data;
@@ -294,10 +340,16 @@ angular.module('pele.controllers', [])
           //--- ERROR ---//
           , function () {
             retUserModuleTypes.success(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
             }).error(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
@@ -343,6 +395,9 @@ angular.module('pele.controllers', [])
           function () {
 
             retGetUserFormGroups.success(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
+
               var pinStatus = PelApi.GetPinCodeStatus(data, "GetUserFormGroups");
 
               if ("Valid" === pinStatus) {
@@ -381,11 +436,17 @@ angular.module('pele.controllers', [])
           //--- ERROR ---//
           , function () {
             retGetUserFormGroups.success(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
 
             }).error(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
@@ -456,10 +517,17 @@ angular.module('pele.controllers', [])
           //--- SUCCESS ---//
           function () {
             retGetUserNotifications.success(function (data, status, headers, config) {
+
+
+              PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
+
               var strData = JSON.stringify(data);
               strData = strData.replace(/\\/g, "");
               strData = strData.replace(/"{/g, "{");
               strData = strData.replace(/}"/g, "}");
+              console.log("======================================");
+              console.log(strData);
+              console.log("======================================");
 
               var newData = JSON.parse(strData);
               config_app.docDetails = newData.Response.OutParams.Result.ROWSET.ROW;
@@ -477,6 +545,9 @@ angular.module('pele.controllers', [])
 
               $state.go(statePath, {"AppId": appId, "DocId": docId, "DocInitId": docInitId});
             }).error(function (data, status, headers, config) {
+
+                PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success.error : " + JSON.stringify(data));
+
                 $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
                 PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
@@ -487,11 +558,17 @@ angular.module('pele.controllers', [])
           , function () {
 
             retGetUserNotifications.success(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
 
             }).error(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               PelApi.showPopup(config_app.getUserModuleTypesErrorMag , "");
@@ -499,9 +576,6 @@ angular.module('pele.controllers', [])
             });
           }
         );
-        //=============================================================================
-        //=============================================================================
-
       }
     } // forwardToDoc
 
@@ -633,6 +707,8 @@ angular.module('pele.controllers', [])
         $scope.DOC_INIT_ID     = config_app.docDetails.DOC_INIT_ID;
         $scope.SENT_DATE       = config_app.docDetails.SENT_DATE;
         $scope.NOTIFICATION_ID = config_app.docDetails.NOTIFICATION_ID;
+        $scope.HOLIDAY_BALANCE = config_app.docDetails.HOLIDAY_BALANCE;
+
 
         // Show the action sheet
         $scope.approve = config_app.ApprovRejectBtnDisplay;
@@ -773,6 +849,9 @@ angular.module('pele.controllers', [])
                   //---- SUCCESS -----//
                   function () {
                     retSubmitNotification.success(function (data, status, headers, config) {
+
+                      PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
+
                       $ionicLoading.hide();
                       $scope.$broadcast('scroll.refreshComplete');
                       $ionicNavBarDelegate.back();
@@ -786,11 +865,17 @@ angular.module('pele.controllers', [])
                   //---- ERROR -----//
                   function () {
                     retSubmitNotification.success(function (data, status, headers, config) {
+
+                      PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
+
                       $ionicLoading.hide();
                       $scope.$broadcast('scroll.refreshComplete');
                       $ionicNavBarDelegate.back();
                     }),
                       retSubmitNotification.error(function (data, status, headers, config) {
+
+                        PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
+
                         $ionicLoading.hide();
                         $scope.$broadcast('scroll.refreshComplete');
                         $ionicNavBarDelegate.back();
@@ -808,11 +893,17 @@ angular.module('pele.controllers', [])
               //---- SUCCESS -----//
               function () {
                 retSubmitNotification.success(function (data, status, headers, config) {
+
+                  PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
+
                   $ionicLoading.hide();
                   $scope.$broadcast('scroll.refreshComplete');
                   $ionicNavBarDelegate.back();
                 }),
                   retSubmitNotification.error(function (data, status, headers, config) {
+
+                    PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success.error : " + JSON.stringify(data));
+
                     $ionicLoading.hide();
                     $scope.$broadcast('scroll.refreshComplete');
                     $ionicNavBarDelegate.back();
@@ -821,11 +912,17 @@ angular.module('pele.controllers', [])
               //---- ERROR -----//
               function () {
                 retSubmitNotification.success(function (data, status, headers, config) {
+
+                  PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
+
                   $ionicLoading.hide();
                   $scope.$broadcast('scroll.refreshComplete');
                   $ionicNavBarDelegate.back();
                 }),
                   retSubmitNotification.error(function (data, status, headers, config) {
+
+                    PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
+
                     $ionicLoading.hide();
                     $scope.$broadcast('scroll.refreshComplete');
                     $ionicNavBarDelegate.back();
@@ -862,11 +959,17 @@ angular.module('pele.controllers', [])
               //---- SUCCESS -----//
               function () {
                 retSubmitNotification.success(function (data, status, headers, config) {
+
+                  PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
+
                   $ionicLoading.hide();
                   $scope.$broadcast('scroll.refreshComplete');
                   $ionicNavBarDelegate.back();
                 }),
                   retSubmitNotification.error(function (data, status, headers, config) {
+
+                    PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success.error" + JSON.stringify(data));
+
                     $ionicLoading.hide();
                     $scope.$broadcast('scroll.refreshComplete');
                     $ionicNavBarDelegate.back();
@@ -875,11 +978,17 @@ angular.module('pele.controllers', [])
               //---- ERROR -----//
               function () {
                 retSubmitNotification.success(function (data, status, headers, config) {
+
+                  PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
+
                   $ionicLoading.hide();
                   $scope.$broadcast('scroll.refreshComplete');
                   $ionicNavBarDelegate.back();
                 }),
                   retSubmitNotification.error(function (data, status, headers, config) {
+
+                    PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
+
                     $ionicLoading.hide();
                     $scope.$broadcast('scroll.refreshComplete');
                     $ionicNavBarDelegate.back();
@@ -955,11 +1064,17 @@ angular.module('pele.controllers', [])
         //---- SUCCESS -----//
         function () {
           retSubmitNotification.success(function (data, status, headers, config) {
+
+            PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE , JSON.stringify(data));
+
             $ionicLoading.hide();
             $scope.$broadcast('scroll.refreshComplete');
             $ionicNavBarDelegate.back();
           }),
             retSubmitNotification.error(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success.error : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               $ionicNavBarDelegate.back();
@@ -968,11 +1083,17 @@ angular.module('pele.controllers', [])
         //---- ERROR -----//
         function () {
           retSubmitNotification.success(function (data, status, headers, config) {
+
+            PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "success : " + JSON.stringify(data));
+
             $ionicLoading.hide();
             $scope.$broadcast('scroll.refreshComplete');
             $ionicNavBarDelegate.back();
           }),
             retSubmitNotification.error(function (data, status, headers, config) {
+
+              PelApi.writeToLog(config_app.LOG_FILE_ERROR_TYPE , "error : " + JSON.stringify(data));
+
               $ionicLoading.hide();
               $scope.$broadcast('scroll.refreshComplete');
               $ionicNavBarDelegate.back();
@@ -1049,20 +1170,57 @@ angular.module('pele.controllers', [])
 
             $scope.submitNotif("APPROVE", note);
           }
+          if(button === appSettings.REJECT){
+            $scope.docReject();
+          }
           return true;
         },
         //-----------------------------------------------
         //--           DESTRUCTIVE BUTTON
         //-----------------------------------------------
-        destructiveButtonClicked: function (){
-          // add destructive button code..
-          $scope.docReject();
-          return true;
-        },
+
       });
     }
 
     $scope.doRefresh();
 
+  }])
+
+.controller('SettingsListCtrl', [ '$scope'
+                                , '$fileLogger'
+                                , '$timeout'
+                                , 'PelApi'
+                                , function($scope
+                                         , $fileLogger
+                                         , $timeout
+                                         , PelApi
+                                         ){
+
+    $scope.sendMail = function(){
+
+      $fileLogger.setStorageFilename(config_app.LOG_FILE_NAME);
+
+      $fileLogger.info("==================== END ====================");
+
+      $timeout(function(){
+
+        $fileLogger.checkFile().then(function(d) {
+
+          resolveLocalFileSystemURL(d.localURL.toString(), function(entry) {
+
+            cordova.plugins.email.open({
+              to:      'Mobile_Admins_HR@pelephone.co.il',
+              subject: config_app.LOG_FILE_MAIL_SUBJECT,
+              body:    '',
+              attachments:  entry.toURL()
+            });
+
+            PelApi.writeToLog(config_app.LOG_FILE_INFO_TYPE ,'=============== Send Email ==============');
+
+          }); // resolveLocalFileSystemURL
+        });
+      }, 8000);
+
+    } // sendMail
   }])
 ;

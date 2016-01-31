@@ -1,4 +1,8 @@
-<ion-view class="feeds-categories-view " cache-view="false">
+<ion-view class="feeds-categories-view " cache-view="false" hide-back-button="true">
+  <ion-nav-buttons side="right"  >
+    <button menu-toggle="left" class="button button-icon icon ion-navicon">
+    </button>
+  </ion-nav-buttons>
   <ion-nav-title>
     <div class="bar bar-header bar-light">
       <div class="title" id="logo">
@@ -6,6 +10,7 @@
       </div>
     </div>
   </ion-nav-title>
+
   <ion-content class="pele-background">
     <ion-refresher pulling-text="משוך לרענון..." on-refresh="doRefresh()">
     </ion-refresher>
@@ -13,33 +18,6 @@
     <div class="pele-page-title pele-img-size pele-page-title-font">
       <a class="description">בחירת אפליקציה</a>
     </div>
-    <!-- -->
-    <!-- Source Version
-    <div class="row categories-list">
-      <div ng-repeat="category in feeds_categories.menuItems" class="col col-50" ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)">
-        <a class="feed-category" >
-          <pre-img ratio="_1_1" helper-class="square-image" class="app-button">
-            <img class="category-image" ng-src="{{category.Image}}" spinner-on-load>
-          </pre-img>
-          <div class="category-bg"></div>
-          <span class="category-title">{{category.DisplayName}}</span>
-
-        </a>
-      </div>
-    </div>
-    -->
-    <!--
-    <div class="list pele-list category-feeds">
-      <a ng-repeat="category in feeds_categories.menuItems" class="pele-item item item-icon-right" ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)">
-
-        <div class="app-button">
-          <p class="description">{{category.DisplayName}}</p>
-        </div>
-
-      </a>
-    </div>
-    -->
-    <!---->
     <div class="row row-bottom">
       <div class="col"></div>
     </div>
@@ -76,6 +54,7 @@
       </div>
 
     </div>
+
 
   </ion-content>
 </ion-view>

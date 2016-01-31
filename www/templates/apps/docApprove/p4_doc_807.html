@@ -70,6 +70,15 @@
               <h2 class="text-right">חטיבה : {{SECTOR}}</h2>
             </label>
       <ul class="list">
+        <label class="item" dir="RTL">
+          <!-- Holly Day -->
+          <div class="row">
+            <div class="col col-30 text-right">יתרת שעות חופשה</div>
+          </div>
+          <div class="row">
+            <textarea class="col text-right" readonly="true" rows="2" on-touch="openExistText(HOLIDAY_BALANCE)">{{HOLIDAY_BALANCE}}</textarea>
+          </div>
+        </label>
         <div ng-repeat="detail in docDetails.DOC_LINES" type="item-text-wrap" dir="RTL">
             <a class="item item-divider item-icon-right">
               <i class="icon ion-android-calendar"></i>
@@ -80,17 +89,29 @@
               </span>
             </a>
           <label class="item">
+
+            <!--- From Date --->
             <div class="row">
-              <div class="col text-right">סיבה העדרות : </div>
+              <div class="col col-30 text-right">מתאריך : </div>
+              <div class="col col-78 text-right">{{detail.ATTRIBUTE2}}</div>
+            </div>
+            <!--- To Date --->
+            <div class="row">
+              <div class="col col-30 text-right">עד תאריך : </div>
+              <div class="col col-78 text-right">{{detail.ATTRIBUTE3}}</div>
+            </div>
+
+            <div class="row">
+              <div class="col col-30 text-right">סיבה העדרות : </div>
+              <div class="col col-70 text-right" readonly="true" on-touch="openExistText(detail.ATTRIBUTE4)">
+                <p class="under" style="color:blue">{{detail.ATTRIBUTE4}}</p>
+              </div>
             </div>
             <div class="row">
-              <textarea class="col text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE4)">{{detail.ATTRIBUTE4}}</textarea>
-            </div>
-            <div class="row">
-              <div class="col text-right">הערה : </div>
-            </div>
-            <div class="row">
-              <textarea class="col text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE5)">{{detail.ATTRIBUTE5}}</textarea>
+              <div class="col col-30 text-right">הערה : </div>
+              <div class="col col-70 text-right" readonly="true" on-touch="openExistText(detail.ATTRIBUTE5)">
+                <p class="under" style="color:blue">{{detail.ATTRIBUTE5}}</p>
+              </div>
             </div>
           </label>
         </div>
@@ -102,21 +123,14 @@
   <!-- Footer Actions -->
   <ion-footer-bar align-title="right">
 
-    <div class="row " ngmodel="buttons.approve" ng-show="approve">
+    <div class="row">
       <div class="col">
-        <button class="button button-block button-large button-positive  icon-right ion-checkmark-circled" ng-click="docApprove()">אישור</button>
+        <button class="button button-block button-large button-positive  icon-right ion-paper-airplane" ng-click="showBtnActions()">פעולות</button>
       </div>
 
       <div class="col">
-        <button class="button button-block button-large button-balanced icon-right ion-close-circled" ng-click="docReject()">דחיה</button>
+        <button class="button button-block button-large button-balanced icon-right ion-document-text" ng-click="NotePopup()">הערה</button>
       </div>
-    </div>
-    <div class="row" ngmodel="buttons.approve" ng-show="!approve">
-      <div class="col col-25"></div>
-      <div class="col">
-        <button class="button button-block button-large button-positive  icon-right ion-checkmark-circled" ng-click="docOK()">אישור</button>
-      </div>
-      <div class="col col-25"></div>
     </div>
 
   </ion-footer-bar>

@@ -1,6 +1,6 @@
 angular.module('pele.factories', [])
 
-.factory('PelApi',function($http ,$rootScope,appSettings,$state,$ionicLoading, $filter , $ionicPopup , $timeout) {
+.factory('PelApi',function($http ,$rootScope,appSettings,$state,$ionicLoading,$filter,$ionicPopup,$timeout,$fileLogger) {
   return {
     sendPincode: function (pincode) {
       return $http({
@@ -27,11 +27,16 @@ angular.module('pele.factories', [])
     getMenu: function (links) {
       // LOADING
       var envUrl = links.URL;
+      var version = appSettings.APP_VERSION;
+
+      this.writeToLog(config_app.LOG_FILE_INFO_TYPE ,"====== getMenu ======");
+      this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "URL :" + JSON.stringify(envUrl));
+
       return   $http({
         url:envUrl,
         method: "GET",
         timeout :appSettings.menuTimeout,
-        headers: {'Content-Type': 'application/json; charset=utf-8 '}
+        headers: {'Content-Type': 'application/json; charset=utf-8','VERSION':version}
       });
     },
     //------------------------------------------------------------------------//
@@ -54,6 +59,10 @@ angular.module('pele.factories', [])
         }
       }
       };
+
+      this.writeToLog(config_app.LOG_FILE_INFO_TYPE ,"====== getUserModuleTypes ======");
+      this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "URL :" + JSON.stringify(envUrl));
+      this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "DATA : " + JSON.stringify(data));
 
       return $http({
         url:envUrl ,
@@ -85,6 +94,10 @@ angular.module('pele.factories', [])
                         }
         };
 
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE ,"====== GetUserFormGroups ======");
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "URL :" + JSON.stringify(envUrl));
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "DATA : " + JSON.stringify(data));
+
         return $http({
             url:envUrl ,
             method:"POST" ,
@@ -113,6 +126,10 @@ angular.module('pele.factories', [])
             }
         }
         };
+
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE ,"====== GetUserNotifications ======");
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "URL :" + JSON.stringify(envUrl));
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "DATA : " + JSON.stringify(data));
 
         return $http({
             url:envUrl,
@@ -144,6 +161,9 @@ angular.module('pele.factories', [])
             }
         }
         };
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE ,"====== SubmitNotification ======");
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "URL :" + JSON.stringify(envUrl));
+        this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "DATA : " + JSON.stringify(data));
         return $http({
             url:envUrl,
             method:"POST",
@@ -160,7 +180,10 @@ angular.module('pele.factories', [])
         var status = "";
         try{
           if("getMenu" === interface){
-              status = data.token;
+              status = data.Status;
+              if("OLD" === status){
+                return status;
+              }
               if("PAD" !== status ){
                   status = "Valid"
               }
@@ -313,6 +336,27 @@ angular.module('pele.factories', [])
       } // for
       return buttons;
     },
+    writeToLog : function( textType , text ){
+
+      $fileLogger.setStorageFilename(config_app.LOG_FILE_NAME);
+
+      if("I" === textType && text !==undefined){
+        console.log('== I ==');
+        $fileLogger.info(text);
+      }
+      else if("D" === textType && text !==undefined){
+        console.log('== D ==');
+        $fileLogger.debug(text)
+      }
+      else if("W" === textType && text !==undefined){
+        console.log('== W ==');
+        $fileLogger.warn(text);
+      }
+      else if("E" === textType && text !==undefined){
+        console.log('== E ==');
+        $fileLogger.error(text);
+      }
+    }// writeToLog
   };
 })
 

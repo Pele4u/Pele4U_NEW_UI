@@ -6,7 +6,7 @@
         id        = "com.pele-desk.pro"
         version   = "1.0.0">
 
-  <name>פלא-דסק</name>
+<name>PELE4U</name>
   <description>
   Work form anywhere
   </description>
@@ -37,7 +37,9 @@
     <preference name="android-installLocation"    value="auto" />           <!-- android: app install location. 'auto' will choose. 'internalOnly' is device memory. 'preferExternal' is SDCard. -->	
     <preference name="SplashScreen"               value="splash.png" /> -->
     <preference name="SplashScreenDelay"          value="4000" /> -->
-    <!--
+  <plugin name="cordova-plugin-file" spec="3.0.0" source="pgb" />
+  <plugin name="de.appplant.cordova.plugin.email-composer" spec="0.8.2" source="pgb" />
+  <!--
         Define a specific version of PhoneGap to build into your app.
         <preference name="phonegap-version"       value="3.5.0" />
     -->
@@ -55,6 +57,7 @@
     <gap:plugin name="org.apache.cordova.inappbrowser" />
     <gap:plugin name="org.apache.cordova.media" />
     <gap:plugin name="org.apache.cordova.network-information" />
+  <gap:plugin name="de.appplant.cordova.plugin.email-composer" version="0.8.2" />
     <!--<gap:plugin name="cordova-plugin-splashscreen"  source="npm" /> -->
 
   

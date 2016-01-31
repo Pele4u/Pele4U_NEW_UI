@@ -85,34 +85,28 @@
           </a>
           <label class="item" ng-show="isGroupShown(detail.EFFECTIVE_DATE)">
             <div class="row">
-              <div class="col col-30 text-right">שעת התחלה</div>
-              <div class="col col-70 text-right">{{detail.ATTRIBUTE2}}</div>
+              <div class="col col-30 text-right">שעת התחלה : </div>
+              <div class="col col-78 text-right">{{detail.ATTRIBUTE2}}</div>
             </div>
             <div class="row">
-              <div class="col col-30 text-right">שעת סיום</div>
+              <div class="col col-30 text-right">שעת סיום : </div>
               <div class="col col-70 text-right">{{detail.ATTRIBUTE3}}</div>
             </div>
             <div class="row">
-              <div class="col col-30 text-right">סוג דיווח</div>
-              <div class="col col-70 text-right">{{detail.ATTRIBUTE5}}</div>
+              <div class="col col-30 text-right">סוג דיווח : </div>
+              <div class="col col-70 text-right" readonly="true" on-touch="openExistText(detail.ATTRIBUTE5)">
+                <p class="under" style="color:blue">{{detail.ATTRIBUTE5}}</p>
+              </div>
             </div>
             <div class="row">
               <div class="col col-30 text-right">מטרת עבודה : </div>
-              <div class="col col-70 text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE6)" >
+              <div class="col col-70 text-right" readonly="true" on-touch="openExistText(detail.ATTRIBUTE6)" >
                 <p class="under" style="color:blue">{{detail.ATTRIBUTE6}}</p>
               </div>
             </div>
-            <!--
             <div class="row">
               <div class="col col-30 text-right">הערה : </div>
-              <div class="col col-70 text-right" readonly="true" rows="2" on-touch="openExistText(detail.ATTRIBUTE7)">
-                <p style="color:blue">{{detail.ATTRIBUTE7}}</p>
-              </div>
-            </div>
-            -->
-            <div class="row">
-              <div class="col col-30 text-right">הערה : </div>
-              <div class="col col-70 text-right" readonly="true" rows="2" on-touch="show()">
+              <div class="col col-70 text-right" readonly="true" on-touch="openExistText(detail.ATTRIBUTE7)">
                 <p class="under" style="color:blue">{{detail.ATTRIBUTE7}}</p>
               </div>
             </div>
