@@ -21,22 +21,25 @@
     <div class="row row-bottom">
       <div class="col"></div>
     </div>
+    <!-- start ng-repeat -->
     <div class="row row-bottom" ng-repeat="category in feeds_categories.menuItems" ng-model="btn_class.on_release" on-touch="btn_class.on_release = !btn_class.on_release" on-release="btn_class.on_release = !btn_class.on_release">
-
       <div class="row" ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)" ng-show ="btn_class.on_release">
+
         <div class="col col-10"></div>
+
         <div class="col col-80 pele-item-on-release item item-icon-right">
           <div class="row row-center">
             <a class="col col-20">
               <img ng-src="{{category.Image}}" spinner-on-load class="float-right " style="max-width:100%;height:auto; vertical-align: middle" >
             </a>
-              <a class="col col-80">
-                  <p class="description">{{category.DisplayName}}</p>
-              </a>
-
+            <a class="col col-80">
+              <p class="description">{{category.DisplayName}}</p>
+            </a>
           </div>
         </div>
+
         <div class="col col-10"></div>
+
       </div>
       <div class="row" ng-click="forwardToApp(category.Path, category.AppId , category.DisplayName)" ng-show ="!btn_class.on_release">
         <div class="col col-10"></div>
@@ -52,9 +55,7 @@
         </div>
         <div class="col col-10"></div>
       </div>
-
     </div>
-
-
+    <!-- end start ng-repeat -->
   </ion-content>
 </ion-view>

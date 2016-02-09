@@ -86,7 +86,10 @@ textarea.pele-no-resize
     resize:none;
 }
 span.tab{
-    padding: 0 30px;
+    padding: 0 10px;
+}
+p.tab{
+  padding: 0 10px;
 }
 /*----------------------------------------------------------*/
 /*-- When        Who       Description
@@ -321,10 +324,10 @@ span.item-title{
 
 ion-item.item-stable{text-align: right;}
 ion-item.item-stable :active{background-color: #FFFFFF !important;}
-ion-item.item-doc-list{margin-top:2px; margin-bottom: 2px; background-color: #CECECE; min-height: 64px; vertical-align: middle; border: none; }
-.item-doc-list img{height: 50px; float: left;  width:auto; border: none;}
+ion-item.item-doc-list{margin-top:1px; margin-bottom: 1px; background-color: #CECECE; max-height: 60px; vertical-align: top; border: none; }
+.item-doc-list img{height: 33px; float: left;  width:auto; border: none;}
 div.item-content{padding:5px 10px 5px 10px !important; border: none !important; background-color: #CECECE !important;  vertical-align: middle !important;}
-.item-doc h2{    padding: 15px 10px 0px 10px ;}
+.item-doc h2{    padding: 0px 5px 0px 5px ;}
 .item-doc h3{    padding: 0px 10px 0px 10px ;}
 
 /* rem by R.W.

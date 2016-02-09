@@ -17,7 +17,6 @@ angular.module('pele.config', [])
     APPROVE : {text: '<i id="APPROVE" class="icon ion-checkmark-circled text-center"></i> אישור'},
     OK      : {text: '<i id="OK"      class="icon ion-checkmark-circled text-center"></i> אישור'},
     REJECT  : {text: '<i id="REJECT"  class="icon ion-close-circled     text-center" style="color:#F71914"></i> דחיה'},
-    APP_VERSION:100,
     enviroment:"PROD",
     enviromentLinks:[
                       { Environment:"CURRENT",
@@ -118,6 +117,7 @@ angular.module('pele.config', [])
 
 var config_app;
 config_app = {
+  APP_VERSION:101,
   fileLogger:"",
   LOG_FILE_NAME: "Pele4U.txt",
   LOG_FILE_MAIL_RECIPIENT: "Mobile_Admins_HR@pelephone.co.il",

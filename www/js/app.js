@@ -6,6 +6,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('pele', ['ionic'
                            ,'ngCordova'
+                           ,'ngStorage'
                            ,'tabSlideBox'
                            ,'pele.controllers'
                            ,'pele.factories'
@@ -14,13 +15,31 @@ angular.module('pele', ['ionic'
                            ,'fileLogger'
                           ])
 
-.run(function($ionicPlatform , $state , $ionicLoading , $fileLogger , PelApi  ) {
+.run(function($ionicPlatform , $state , $ionicLoading , $fileLogger , PelApi , appSettings  ) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
+
+      //----------------------------------------
+      //--    Get Version from config.xml
+      //----------------------------------------
+      cordova.getAppVersion(function (version) {
+        config_app.APP_VERSION = version;
+      });
+      console.log("VERSION : " + config_app.APP_VERSION);
+
+      //-----------------------------------------
+      //--   Registration for Push Notification
+      //-----------------------------------------
+      var notificationOpenedCallback = function(jsonData) {
+        //alert("Notification received:\n" + JSON.stringify(jsonData));
+        //console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+      };
+
+      window.plugins.OneSignal.init("1d0135a7-da67-4953-b241-2385bfcedcd9", {googleProjectNumber: "655668363586"}, notificationOpenedCallback);
 
     }
     if (window.StatusBar) {
@@ -124,7 +143,7 @@ angular.module('pele', ['ionic'
     })
     //---- home ----//
     .state('app.home', {
-      url: '/home',
+      url: '/home/:showLoading',
       views: {
         'menuContent': {
           templateUrl: 'templates/p1_appsLists.html',
@@ -150,7 +169,17 @@ angular.module('pele', ['ionic'
           }
         }
   })
+  .state('app.appProfile', {
+      url: '/appProfile',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/settings/appProfile.html',
+          controller: 'AppProfileCtrl'
+        }
+      }
+    })
   ;
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/home');
+  $urlRouterProvider.otherwise('/app/home',{'showLoading':'Y'});
 });

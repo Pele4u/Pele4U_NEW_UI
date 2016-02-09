@@ -37,7 +37,7 @@
               <p class="text-right">{{detail.USER_NAME}}</p>
             </a>
             <!--</div>-->
-            <label class="item" ng-hide="pelHideShow(detail.ACTION)">
+            <label class="item" ng-hide="pelHideShow(detail.ACTION , detail.NOTE)">
               <div class="row">
                 <div class="col text-right">פעולה : </div>
                 <div class="col col-75 text-right">{{detail.ACTION}}</div>
@@ -48,7 +48,7 @@
               </div>
               <div class="row">
                 <div class="col text-right">הערות : </div>
-                <textarea class="col col-75 text-right" readonly="true">{{detail.ACTION_NOTE}}</textarea>
+                <textarea class="col col-75 text-right" readonly="true">{{detail.NOTE}}</textarea>
               </div>
             </label>
           </div>
@@ -81,7 +81,7 @@
               <span class="tab">סה"כ
                 {{detail.ATTRIBUTE4}}
               </span>
-            <i ng-class="isGroupShown(detail.EFFECTIVE_DATE) ? 'icon-expand' : 'icon-collapse'"></i>
+          <i ng-class="isGroupShown(detail.EFFECTIVE_DATE) ? 'icon-expand' : 'icon-collapse'"></i>
           </a>
           <label class="item" ng-show="isGroupShown(detail.EFFECTIVE_DATE)">
             <div class="row">

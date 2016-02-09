@@ -1,4 +1,4 @@
-angular.module('pele.controllers', [])
+angular.module('pele.controllers', ['ngStorage'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $cordovaNetwork , $rootScope , appSettings , $state ) {
 
@@ -36,6 +36,7 @@ angular.module('pele.controllers', [])
     }
     if(appSettings.enviroment === "QA"){
       $scope.myClass = "envQA";
+      //$scope.myClass = "envPD";
     }
     if(appSettings.enviroment === "DEV"){
       $scope.myClass = "envDV";
@@ -46,18 +47,45 @@ angular.module('pele.controllers', [])
     $scope.forwardTo = function(statePath){
       $state.go(statePath);
     }
+    //===============================================
+    //==             isShowLogOut
+    //===============================================
+    $scope.isShowLogOut = function(){
+      var deviceInformation = ionic.Platform.device();
+      var isWebView = ionic.Platform.isWebView();
+      var isIPad = ionic.Platform.isIPad();
+      var isIOS = ionic.Platform.isIOS();
+      var isAndroid = ionic.Platform.isAndroid();
+      var isWindowsPhone = ionic.Platform.isWindowsPhone();
+
+      if(isAndroid){
+      $scope.menu.isShowLogOut = true;
+      }
+      else{
+        $scope.menu.isShowLogOut = false;
+      }
+    }
     //===============================================//
     //==            Log Out                        ==//
     //===============================================//
     $scope.logout  = function() {
-      ionic.Platform.exitApp();
+      isAndroid = ionic.Platform.isAndroid();
+
+      if(isAndroid){
+        ionic.Platform.exitApp();
+      }
     } ;
+    $scope.menu ={};
+    $scope.isShowLogOut();
 })
 //=====================================================================//
 //==                        homeCtrl                                 ==//
 //=====================================================================//
-.controller('homeCtrl' , function($scope , $http , $state , $ionicLoading , PelApi , $cordovaNetwork , $rootScope , $ionicPopup){
-    PelApi.showLoading();
+.controller('homeCtrl' , function($scope , $http , $state , $ionicLoading , PelApi , $cordovaNetwork , $rootScope , $ionicPopup, $stateParams){
+    var showLoading = $stateParams.showLoading;
+    if("Y" === showLoading){
+      PelApi.showLoading();
+    }
 }) // homeCtrl
 //=====================================================================//
 //==                      Setings SendLog                            ==//
@@ -131,6 +159,7 @@ angular.module('pele.controllers', [])
           if("Valid" === pinCodeStatus){
 
             config_app.token    = data.token;
+            console.log("TOKEN : " + data.token);
             config_app.user     = data.user;
             config_app.userName = data.userName;
             var strData = JSON.stringify(data);
@@ -138,8 +167,18 @@ angular.module('pele.controllers', [])
             strData = strData.replace(/"\"/g,"");
             config_app.GetUserMenu = JSON.parse(strData);
             $scope.feeds_categories = config_app.GetUserMenu;
+
+            //---------------------------------------------
+            //-- Send User Tag for push notifications
+            //---------------------------------------------
+            window.plugins.OneSignal.sendTag("User",data.userName);
+
+            //---------------------------------------------
+            //--           Close Loading
+            //---------------------------------------------
             $ionicLoading.hide();
             $scope.$broadcast('scroll.refreshComplete');
+
           } else if ("PAD" === pinCodeStatus ) {
             $ionicLoading.hide();
             $scope.$broadcast('scroll.refreshComplete');
@@ -203,7 +242,7 @@ angular.module('pele.controllers', [])
 //=================================================================
 //==                    PAGE_2
 //=================================================================
-  .controller('P2_moduleListCtrl', function($scope, $http, $stateParams , $state , PelApi,$cordovaNetwork, $ionicLoading, $ionicModal , $timeout) {
+  .controller('P2_moduleListCtrl', function($scope, $http, $stateParams , $state , PelApi,$cordovaNetwork, $ionicLoading, $ionicModal , $timeout , $sessionStorage) {
     //----------------------- LOGIN --------------------------//
 
     // Form data for the login modal
@@ -256,6 +295,7 @@ angular.module('pele.controllers', [])
     //===================== Refresh ===========================//
     $scope.doRefresh = function(){
       //--
+      $sessionStorage.DOC_ID = "";
       $scope.btn_class = {};
       $scope.btn_class.on_release = true;
 
@@ -332,7 +372,6 @@ angular.module('pele.controllers', [])
                 $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
                 $state.go("app.p1_appsLists");
-
               }
 
             });
@@ -368,13 +407,16 @@ angular.module('pele.controllers', [])
 //=================================================================
 //==                    PAGE_3
 //=================================================================
-  .controller('p3_moduleDocListCtrl', function($scope, $stateParams, $http, $q, $ionicLoading, $state ,PelApi , $cordovaNetwork) {
+  .controller('p3_moduleDocListCtrl', function($scope, $stateParams, $http, $q, $ionicLoading, $state ,PelApi , $cordovaNetwork , $sessionStorage) {
 
 
     //----------------------- REFRESH ------------------------//
     $scope.doRefresh = function() {
 
       PelApi.showLoading();
+
+      var sessionDocId = $sessionStorage.DOC_ID;
+      $scope.toggleGroup(sessionDocId);
 
       var appId = $stateParams.AppId,
         formType = $stateParams.FormType,
@@ -603,6 +645,7 @@ angular.module('pele.controllers', [])
                         ,'$cordovaNetwork'
                         ,'$ionicPopup'
                         ,'appSettings'
+                        ,'$sessionStorage'
     , function(  $rootScope
     , $scope
     , $stateParams
@@ -619,6 +662,7 @@ angular.module('pele.controllers', [])
     , $cordovaNetwork
     , $ionicPopup
     , appSettings
+    , $sessionStorage
   ) {
     //---------------------------------------------------------------------------
     //--                         openExistText
@@ -684,6 +728,8 @@ angular.module('pele.controllers', [])
         docId = $stateParams.DocId,
         docInitId = $stateParams.DocInitId;
 
+      $sessionStorage.DOC_ID = docId;
+
       if("wifi" === config_app.network){
         $ionicLoading.hide();
         $scope.$broadcast('scroll.refreshComplete');
@@ -695,7 +741,12 @@ angular.module('pele.controllers', [])
         if(config_app.docDetails.DOC_LINES.length > 1){
           $scope.shownGroup = null;
         }else{
+          if(docId === "807"){
+            $scope.shownGroup = config_app.docDetails.DOC_LINES[0].ATTRIBUTE2;
+          }
+          else{
           $scope.shownGroup = config_app.docDetails.DOC_LINES[0].EFFECTIVE_DATE;
+          }
         }
         $scope.buttonsArr      = config_app.docDetails.BUTTONS;
         $scope.docDetails      = config_app.docDetails;
@@ -724,7 +775,7 @@ angular.module('pele.controllers', [])
       if("Y" ===  flag){
         $scope.style.color = "red";
       }else if("N" === flag){
-        $scope.style.color = "blue";
+        $scope.style.color = "black";
       }
       return $scope.style;
     };
@@ -748,13 +799,17 @@ angular.module('pele.controllers', [])
     //-- -------------	--------------  -----------------------------------
     //-- 13/10/2015     R.W.            Hide / Show Approval List Rows
     //---------------------------------------------------------------------
-    $scope.pelHideShow = function(action){
+    $scope.pelHideShow = function(action , note){
       var retStatus;
       if(action != "" && action != undefined)
       {
         retStatus = false;
       }else {
         retStatus = true;
+      }
+
+      if(retStatus && note != "" && note != undefined ) {
+        retStatus = false;
       }
       return retStatus;
     };
@@ -1189,10 +1244,12 @@ angular.module('pele.controllers', [])
 .controller('SettingsListCtrl', [ '$scope'
                                 , '$fileLogger'
                                 , '$timeout'
+                                , '$state'
                                 , 'PelApi'
                                 , function($scope
                                          , $fileLogger
                                          , $timeout
+                                         , $state
                                          , PelApi
                                          ){
 
@@ -1221,6 +1278,29 @@ angular.module('pele.controllers', [])
         });
       }, 8000);
 
-    } // sendMail
+    }; // sendMail
+    //----------------------------------------------
+    //--             forwardTo
+    //----------------------------------------------
+    $scope.forwardTo = function(statePath){
+        $state.go(statePath);
+    };
+
   }])
+  //------------------------------------------------------------------------
+  //--                       AppProfileCtrl
+  //------------------------------------------------------------------------
+  .controller('AppProfileCtrl', [ '$scope'
+                                , '$fileLogger'
+                                , '$timeout'
+                                , 'PelApi'
+                                , function( $scope
+                                          , $fileLogger
+                                          , $timeout
+                                          , PelApi
+                                ) {
+
+      $scope.APP_VERSION = config_app.APP_VERSION;
+
+    }])
 ;

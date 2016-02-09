@@ -27,10 +27,11 @@ angular.module('pele.factories', [])
     getMenu: function (links) {
       // LOADING
       var envUrl = links.URL;
-      var version = appSettings.APP_VERSION;
+      var version = config_app.APP_VERSION;
 
       this.writeToLog(config_app.LOG_FILE_INFO_TYPE ,"====== getMenu ======");
       this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "URL :" + JSON.stringify(envUrl));
+      this.writeToLog(config_app.LOG_FILE_INFO_TYPE , "VERSION :" + version);
 
       return   $http({
         url:envUrl,
@@ -45,6 +46,7 @@ angular.module('pele.factories', [])
     getUserModuleTypes: function (links,appId,pin) {
 
       var token = config_app.token;
+      console.log("P2 : " + config_app.token);
       var userName = config_app.userName;
 
       var envUrl = links.URL;
@@ -270,7 +272,7 @@ angular.module('pele.factories', [])
 
       // An elaborate, custom popup
       var myPopup = $ionicPopup.show({
-        template: '<input type="tel" ng-model="data.pincode" maxlength="6">',
+        template: '<input type="tel" ng-model="data.pincode" maxlength="4">',
         title: 'הזינו קוד מחמיר',
         subTitle: subTitleTxt,
         scope: $rootScope,
